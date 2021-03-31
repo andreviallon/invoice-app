@@ -1,6 +1,7 @@
 export enum ButtonTypeEnum {
     PRIMARY = 'primary',
     SECONDARY = 'secondary',
+    TERTIARY = 'tertiary',
     DANGER = 'danger'
 }
 
@@ -25,8 +26,21 @@ const Button: React.FC<Props> = ({ text, buttonType }) => {
                 hover:bg-secondary-light
 
                 dark:bg-primary-veryDark
-                dark:text-primary-light
-                hover:dark:text-white
+                dark:text-white
+                dark:hover:bg-white
+                dark:hover:text-primary-veryLight
+            `;
+        }
+
+        if (buttonType === ButtonTypeEnum.TERTIARY) {
+            classes = `
+                ${classes}
+                text-secondary-regular
+                bg-primary-veryDark
+                hover:bg-black
+
+                dark:text-secondary-light
+                :hover:dark:bg-primary-dark
             `;
         }
 
