@@ -1,18 +1,14 @@
-export enum ButtonTypeEnum {
-    PRIMARY = 'primary',
-    SECONDARY = 'secondary',
-    TERTIARY = 'tertiary',
-    DANGER = 'danger'
-}
+import { ButtonTypeEnum } from '../models/ButtonTypes'
 
 interface Props {
     text: string;
     buttonType: ButtonTypeEnum;
+    buttonClick: () => void;
 }
 
-const Button: React.FC<Props> = ({ text, buttonType }) => {
+const Button: React.FC<Props> = ({ text, buttonType, buttonClick }) => {
     const classes = (buttonType): string => {
-        let classes: string = 'py-4 px-6 rounded-full font-bold text-xs focus:outline-none';
+        let classes: string = 'py-4 px-6 rounded-full font-bold text-xs focus:outline-none h-12';
         
         if (buttonType === ButtonTypeEnum.PRIMARY) {
             classes = `${classes} text-white bg-primary-regular hover:bg-primary-light`;
@@ -52,7 +48,7 @@ const Button: React.FC<Props> = ({ text, buttonType }) => {
     }
     
     return (
-        <button className={classes(buttonType)}>{text}</button>
+        <button className={classes(buttonType)} onClick={buttonClick}>{text}</button>
     )
 }
 
