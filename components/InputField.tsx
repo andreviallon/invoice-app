@@ -14,11 +14,26 @@ const InputField: React.FC<Props> = ({ label, onInputChange }) => {
 
     const handleChange = event => setInputValue(event.target.value);
 
-    const inputClasses = 'border-secondary-light border-2 rounded px-4 py-6 text-xs font-bold text-secondary-veryDark focus:border-primary-regular focus:outline-none';
+    const inputClasses = `
+        border-secondary-light
+        border-2
+        rounded
+        px-4
+        py-6
+        text-xs
+        font-bold
+        text-secondary-veryDark
+
+        dark:border-primary-dark
+        dark:bg-primary-dark
+        dark:text-white
+        
+        focus:border-primary-regular
+        focus:outline-none`;
 
     return (
         <>
-            <label className="text-secondary-dark text-xs font-medium mb-2">{label}</label>
+            <label className="text-secondary-dark text-xs font-medium mb-2 dark:text-secondary-light">{label}</label>
             <input className={inputClasses} placeholder="some placeholder" value={inputValue} onChange={handleChange}/>
         </>
     )
