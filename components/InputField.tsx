@@ -32,10 +32,10 @@ const InputField: React.FC<Props> = ({ label, onInputChange }) => {
         focus:outline-none`;
 
     return (
-        <>
+        <div className="flex flex-col">
             <label className="text-secondary-dark text-xs font-medium mb-2 dark:text-secondary-light">{label}</label>
-            <input className={inputClasses} placeholder="some placeholder" value={inputValue} onChange={handleChange}/>
-        </>
+            <input className={inputClasses} placeholder="some placeholder" value={inputValue} onChange={handleChange} />
+        </div>
     )
 }
 

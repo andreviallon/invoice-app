@@ -26,7 +26,7 @@ const ButtonIcon: React.FC<Props> = ({ text, buttonType, icon, buttonClick }) =>
     
     return (
         <button className={classes(buttonType)} onClick={buttonClick}>
-            <span className="flex h-7 w-7 text-primary-regular p-2 mr-4 bg-white rounded-full font-bold text-sm flex items-center">
+            <span className="flex h-7 w-7 text-primary-regular p-2 mr-4 bg-white rounded-full font-bold text-sm items-center">
                 <FontAwesomeIcon icon={icon} />
             </span>
             {text}
