@@ -22,7 +22,7 @@ const Button: React.FC<Props> = ({ text, buttonType, buttonClick }) => {
                 hover:bg-secondary-light
 
                 dark:bg-primary-veryDark
-                dark:text-white
+                dark:text-secondary-regular
                 dark:hover:bg-white
                 dark:hover:text-primary-veryLight
             `;

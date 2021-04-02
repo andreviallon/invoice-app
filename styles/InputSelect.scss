@@ -1,0 +1,53 @@
+
+.dd__selectControl {
+    display: flex;
+    justify-content: space-between;
+    color: #0C0E16;
+    padding: 1.5rem 1rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: bold;
+    border: 2px solid #DFE3FA;
+    border-radius: 0.25rem;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        cursor: pointer;
+        border-color: #7C5DFA;
+    }
+}
+  
+.dd__list {
+    margin-top: 0.5rem;
+    background: white;
+    box-shadow: 0 10px 20px 0 rgba(72, 84, 159, 0.25);
+    max-height: unset !important;
+    border-radius: 8px;
+
+    div:last-of-type {
+        .dd__option {
+            border-bottom: none;
+        }
+    }
+}
+  
+.dd__option {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 1rem 1.5rem;
+    border-bottom: 2px solid #DFE3FA;
+    background-color: white;
+  
+    &:hover {
+        color: #7C5DFA;
+        background-color: #F8F8FB;
+    }
+}
+  
+.dd__selectedOption {
+    color: #7C5DFA;
+}

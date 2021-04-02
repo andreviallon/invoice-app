@@ -3,6 +3,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./InputSelect.scss";
+
 * {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
