@@ -1,4 +1,4 @@
-import ButtonIcon from './ButtonIcon'
+import ButtonIcon from '../components/ButtonIcon';
 import { ButtonIconTypeEnum } from '../models/ButtonTypes'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,7 +13,7 @@ export const ButtonIconStory = Story.bind({})
 ButtonIconStory.args = { text, buttonType, icon };
 
 export default {
-    title: 'Button',
+    title: 'Button Icon',
     component: ButtonIcon,
     argTypes: { buttonClick: { action: 'clicked' } },
 };

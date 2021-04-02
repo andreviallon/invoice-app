@@ -1,9 +1,6 @@
 module.exports = {
   stories: [
-    // Paths to the story files
-    "../pages/*.stories.mdx",
-    "../pages/*.stories.tsx",
-    "../components/*.stories.tsx"
+    "../stories/*.stories.tsx"
   ],
   addons: ["@storybook/addon-links", "@storybook/addon-essentials", "storybook-addon-themes"],
   webpackFinal: async (config) => {
