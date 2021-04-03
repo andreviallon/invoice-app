@@ -1,5 +1,5 @@
 import Button from '../components/Button';
-import { ButtonTypeEnum } from '../models/ButtonTypes'
+import { ButtonTypeEnum } from '../models/ButtonTypes';
 
 const text = 'New Invoice';
 const buttonType = ButtonTypeEnum.PRIMARY;
@@ -16,6 +16,6 @@ ButtonStory.args = {
 export default {
     title: 'Button',
     component: Button,
-    argTypes: { buttonClick: { action: 'clicked' } },
+    argTypes: { buttonClick: { action: 'clicked' } }
 };
   

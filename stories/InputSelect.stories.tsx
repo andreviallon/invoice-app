@@ -1,4 +1,4 @@
-import InputSelect from '../components/InputSelect'
+import InputSelect from '../components/InputSelect';
 
 const label: string = 'Payment Terms';
 const selectOptions: string[] = ['option 1', 'option 2', 'option 3'];
@@ -12,5 +12,5 @@ InputSelectStory.args = { label, selectOptions };
 export default {
     title: 'InputSelect',
     component: InputSelect,
-    argTypes: { onSelectChange: { action: 'Input Select Change' } },
+    argTypes: { onSelectChange: { action: 'Input Select Change' } }
 };

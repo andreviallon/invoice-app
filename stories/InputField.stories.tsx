@@ -1,4 +1,4 @@
-import InputField from '../components/InputField'
+import InputField from '../components/InputField';
 
 const label = 'Street Address';
 const placeholder = 'Placeholder';
@@ -12,5 +12,5 @@ InputFieldStory.args = { label, placeholder };
 export default {
     title: 'Input Field',
     component: InputField,
-    argTypes: { onInputChange: { action: 'Input Change' } },
+    argTypes: { onInputChange: { action: 'Input Change' } }
 };
