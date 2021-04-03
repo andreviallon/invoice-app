@@ -97,3 +97,19 @@
     appearance: none;
     outline: none;
 }
+
+.react-datepicker__navigation--next {
+    border-left-color: #7C5DFA;
+
+    &:hover {
+        border-left-color: #7C5DFA;
+    }
+}
+
+.react-datepicker__navigation--previous {
+    border-right-color: #7C5DFA;
+
+    &:hover {
+        border-right-color: #7C5DFA;
+    }
+}
