@@ -1,5 +1,41 @@
 @import "../node_modules/react-datepicker/dist/react-datepicker.css";
 
+//Input styling
+.react-datepicker__input-container {
+    width: 100%;
+
+    input {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        color: #0C0E16;
+        padding: 1.5rem 1rem;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        font-weight: bold;
+        border: 1px solid #DFE3FA;
+        border-radius: 0.25rem;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            cursor: pointer;
+            border-color: #7C5DFA;
+        }
+    }
+}
+
+//Date picker styling
+.react-datepicker-popper {
+    transition: none;
+}
+
+.react-datepicker-popper[data-placement^="bottom"] {
+    margin-top: 0;
+}
+
 .react-datepicker__day {
     width: 1.5rem;
     line-height: 1.5rem;

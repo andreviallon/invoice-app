@@ -1,4 +1,3 @@
-
 .dd__selectControl {
     display: flex;
     justify-content: space-between;
@@ -7,7 +6,7 @@
     font-size: 0.75rem;
     line-height: 1rem;
     font-weight: bold;
-    border: 2px solid #DFE3FA;
+    border: 1px solid #DFE3FA;
     border-radius: 0.25rem;
 
     &:focus {
@@ -39,7 +38,7 @@
     font-weight: bold;
     font-size: 12px;
     padding: 1rem 1.5rem;
-    border-bottom: 2px solid #DFE3FA;
+    border-bottom: 1px solid #DFE3FA;
     background-color: white;
   
     &:hover {

@@ -1,6 +1,6 @@
 import InputDatePicker from '../components/InputDatePicker';
 
-const label: string = 'Payment Terms';
+const label: string = 'Issue Date';
 const selectedDate: Date = new Date();
   
 const Story = (props) => <InputDatePicker {...props} />

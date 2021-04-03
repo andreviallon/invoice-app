@@ -17,7 +17,7 @@ const InputField: React.FC<Props> = ({ label, placeholder, onInputChange }) => {
 
     const inputClasses = `
         border-secondary-light
-        border-2
+        border
         rounded
         px-4
         py-6
