@@ -3,12 +3,13 @@ import Select from 'react-select-me';
 
 interface Props {
     label: string;
+    defaultSelectOption: string;
     selectOptions: string[];
     onSelectChange: (inputValue: string) => void;
 }
 
-const InputSelect: React.FC<Props> = ({ label, selectOptions, onSelectChange }) => {
-    const [selectValue, setSelectValue] = useState(selectOptions[0]);
+const InputSelect: React.FC<Props> = ({ label, defaultSelectOption, selectOptions, onSelectChange }) => {
+    const [selectValue, setSelectValue] = useState(defaultSelectOption ? defaultSelectOption : selectOptions[0]);
 
     useEffect(() => {
         onSelectChange(selectValue);

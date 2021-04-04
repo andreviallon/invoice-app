@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react'
 
 interface Props {
     label: string;
+    defaultInput?: string;
     placeholder: string;
     onInputChange: (inputValue: string) => void;
 }
 
-const InputField: React.FC<Props> = ({ label, placeholder, onInputChange }) => {
-    const [inputValue, setInputValue] = useState('');
+const InputField: React.FC<Props> = ({ label, defaultInput, placeholder, onInputChange }) => {
+    const [inputValue, setInputValue] = useState(defaultInput ? defaultInput : '');
 
     useEffect(() => {
         onInputChange(inputValue);

@@ -2,12 +2,13 @@ import InputField from '../components/InputField';
 
 const label = 'Street Address';
 const placeholder = 'Placeholder';
+const defaultInput = 'Input';
   
 const Story = (props) => <InputField {...props} />
   
 export const InputFieldStory = Story.bind({})
 
-InputFieldStory.args = { label, placeholder };
+InputFieldStory.args = { label, defaultInput, placeholder };
 
 export default {
     title: 'Input Field',

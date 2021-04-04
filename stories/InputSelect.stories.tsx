@@ -2,12 +2,13 @@ import InputSelect from '../components/InputSelect';
 
 const label: string = 'Payment Terms';
 const selectOptions: string[] = ['option 1', 'option 2', 'option 3'];
+const defaultSelectOption: string = selectOptions[0];
   
 const Story = (props) => <InputSelect {...props} />
   
 export const InputSelectStory = Story.bind({})
 
-InputSelectStory.args = { label, selectOptions };
+InputSelectStory.args = { label, selectOptions, defaultSelectOption };
 
 export default {
     title: 'InputSelect',
