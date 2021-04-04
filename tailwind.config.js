@@ -28,7 +28,10 @@ module.exports = {
       },
       background: '#F8F8FB',
       black: "#141625",
-      white: '#FFFFFF'
+      white: '#FFFFFF',
+      green: '#33D69F',
+      orange: '#FF8F00',
+      gray: '#373B53',
     },
     fontFamily: {
       sans: ['Spartan', 'sans-serif'],
