@@ -10,7 +10,7 @@ interface Props {
     cardClicked: () => void;
 }
 
-const InvoiceCard: React.FC<Props> = ({ invoice }) => {
+const InvoiceCard: React.FC<Props> = ({ invoice, cardClicked }) => {
     const cardClasses = `
         p-4
         border-2
@@ -39,7 +39,7 @@ const InvoiceCard: React.FC<Props> = ({ invoice }) => {
     `;
 
     return (
-        <div className={cardClasses}>
+        <div className={cardClasses} onClick={cardClicked}>
             <div className="text-center">
                 <span className="text-primary-regular text-sm font-bold text-center">#</span>
                 <span className="text-black text-sm font-bold text-center dark:text-white">{invoice.index}</span>
