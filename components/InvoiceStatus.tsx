@@ -6,7 +6,21 @@ interface Props {
 
 const InvoiceStatus: React.FC<Props> = ({ invoiceStatus }) => {
     const classes = (invoiceStatus): string => {
-        let classes: string = 'flex items-baseline w-max py-4 px-8 rounded-lg font-bold text-xs bg-opacity-10';
+        let classes: string = `
+            flex
+            items-baseline
+            w-full
+            py-4
+            px-8
+            rounded-lg
+            font-bold
+            text-xs
+            bg-opacity-10
+            flex
+            justify-center
+
+            sm:w-max
+        `;
         
         if (invoiceStatus === InvoiceStatusTypeEnum.PAID) {
             classes = `${classes} bg-green text-green`;

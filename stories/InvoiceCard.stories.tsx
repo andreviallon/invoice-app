@@ -39,7 +39,7 @@ const invoice: InvoiceType = {
         }
     ]
 };
-  
+
 const Story = (props) => <InvoiceCard {...props} />
   
 export const InvoiceStory = Story.bind({})
@@ -50,5 +50,6 @@ InvoiceStory.args = {
 
 export default {
     title: 'InvoiceCard',
-    component: InvoiceCard
+    component: InvoiceCard,
+    argTypes: { cardClicked: { action: 'card clicked' } }
 };
