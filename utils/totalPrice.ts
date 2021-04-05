@@ -1,6 +1,6 @@
 import { Item } from "../models/InvoiceTypes";
 
-export const totalPrice = (items: Item[]): string => {
+const totalPrice = (items: Item[]): string => {
     let totalPrice;
 
     for (let item of items) {
@@ -10,6 +10,4 @@ export const totalPrice = (items: Item[]): string => {
     return totalPrice.toString();
 }
 
-export const convertDate = (date: Date): string => {
-    return '19 Aug 2021';
-};
+export default totalPrice
