@@ -8,7 +8,7 @@ interface Props {
 
 const Button: React.FC<Props> = ({ text, buttonType, buttonClick }) => {
     const classes = (buttonType): string => {
-        let classes: string = 'py-4 px-6 rounded-full font-bold text-xs focus:outline-none h-12';
+        let classes: string = 'py-4 px-6 rounded-full font-bold text-xs focus:outline-none h-12 capitalize';
         
         if (buttonType === ButtonTypeEnum.PRIMARY) {
             classes = `${classes} text-white bg-primary-regular hover:bg-primary-light`;
