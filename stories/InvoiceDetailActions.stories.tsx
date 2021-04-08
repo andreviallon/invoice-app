@@ -1,19 +1,20 @@
-import InvoiceDetailHeader from '../components/InvoiceDetailHeader';
+import InvoiceDetailActions from '../components/InvoiceDetailActions';
 import { InvoiceStatusTypeEnum } from '../models/InvoiceStatusTypes';
 
-const invoiceStatus = InvoiceStatusTypeEnum.PAID;
+const invoiceStatus = InvoiceStatusTypeEnum.PENDING;
 
-const Story = (props) => <InvoiceDetailHeader {...props} />
+const Story = (props) => <InvoiceDetailActions {...props} />
   
-export const InvoiceDetailHeaderStory = Story.bind({})
+export const InvoiceDetailActionStory = Story.bind({})
 
-InvoiceDetailHeaderStory.args = {
+
+InvoiceDetailActionStory.args = {
     invoiceStatus: invoiceStatus
 };
 
 export default {
-    title: 'InvoiceDetailHeader',
-    component: InvoiceDetailHeader,
+    title: 'InvoiceDetailActions',
+    component: InvoiceDetailActions,
     argTypes: {
         editClicked: { action: 'edit clicked' },
         deleteClicked: { action: 'delete clicked' },
