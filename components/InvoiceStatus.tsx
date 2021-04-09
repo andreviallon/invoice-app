@@ -55,14 +55,12 @@ const InvoiceStatus: React.FC<Props> = ({ invoiceStatus }) => {
         return dotClasses;
     }
     
-    return (
-        <div className={classes(invoiceStatus)}>
-            <span className={dotClasses(invoiceStatus)}></span>
-            {invoiceStatus === InvoiceStatusTypeEnum.PAID && <span>Paid</span>}
-            {invoiceStatus === InvoiceStatusTypeEnum.PENDING && <span>Pending</span>}
-            {invoiceStatus === InvoiceStatusTypeEnum.DRAFT && <span>Draft</span>}
-        </div>
-    )
+    return <div className={classes(invoiceStatus)}>
+                <span className={dotClasses(invoiceStatus)}/>
+                {invoiceStatus === InvoiceStatusTypeEnum.PAID && <span>Paid</span>}
+                {invoiceStatus === InvoiceStatusTypeEnum.PENDING && <span>Pending</span>}
+                {invoiceStatus === InvoiceStatusTypeEnum.DRAFT && <span>Draft</span>}
+            </div>
 }
 
 export default InvoiceStatus

@@ -10,9 +10,8 @@ module.exports = {
         "style-loader",
         "css-loader",
         "postcss-loader",
-        // Add the sass loader to process scss files
-        "sass-loader",
-      ],
+        "sass-loader"
+      ]
     })
 
     return config
