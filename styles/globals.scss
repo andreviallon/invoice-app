@@ -16,3 +16,11 @@
 body {
   margin: 0;  
 }
+
+.narbar {
+  width: 90px;
+
+  @media only screen and (max-width: 640px) {
+    width: 100%;
+  }
+}
