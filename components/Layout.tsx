@@ -6,7 +6,9 @@ export default function Layout({ children }) {
         <div className="flex flex-col sm:flex-row">
             <Narbar theme={ThemeEnum.LIGHT} />
             <div className="w-full h-full">
-                {children}
+                <div className="container mx-auto mt-6 p-4">
+                    {children}
+                </div>
             </div>
         </div>
     );
