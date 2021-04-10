@@ -8,7 +8,7 @@ interface Props {
 const InvoiceItemList: React.FC<Props> = ({ itemList }) => {
     
     return (
-        <div className="bg-primary-veryLight dark:bg-primary-veryDark shadow-lg rounded-lg">
+        <div className="bg-primary-veryLight dark:bg-primary-veryDark rounded-lg">
             <div className="px-12 py-8 hidden sm:grid grid-cols-5 gap-4">
                 <p className="col-span-2 text-xs text-secondary-dark dark:text-secondary-light font-medium">Item Name</p>
                 <p className="text-right text-xs text-secondary-dark dark:text-secondary-light font-medium">QTY.</p>
