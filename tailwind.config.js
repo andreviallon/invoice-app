@@ -2,6 +2,14 @@ module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'class',
   theme: {
+    fontSize: {
+      'xs': '.75rem',
+      'sm': '.875rem',
+      'base': '1rem',
+      'h2': '1.25rem',
+      'h1': '2rem',
+      'jumbotron': '7.5rem'
+    },
     screens: {
       'sm': '640px',
       'md': '768px',
@@ -13,6 +21,7 @@ module.exports = {
       primary: {
         regular: '#7C5DFA',
         light: '#9277FF',
+        veryLight: '#F9FAFE',
         dark: '#1E2139',
         veryDark: '#252945'
       },
@@ -38,7 +47,7 @@ module.exports = {
     }
   },
   variants: {
-    extend: {},
+    extend: {}
   },
-  plugins: [],
+  plugins: []
 }
