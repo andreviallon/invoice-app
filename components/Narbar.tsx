@@ -39,7 +39,7 @@ const Narbar:React.FC<Props> = ({ theme }) => {
                     {theme === ThemeEnum.LIGHT ? <FontAwesomeIcon className={iconStyles} icon={faMoon} /> : <FontAwesomeIcon className={iconStyles} icon={faSun} />}
                 </div>
                 <div className="hidden sm:block">
-                    <Image src="/avatar.png" alt="Avatar" layout="fixed" width={64} height={64} />
+                    <Image src="/avatar.png" alt="Avatar" layout="fixed" width={56} height={56} />
                 </div>
                 <div className="block sm:hidden">
                     <Image src="/avatar.png" alt="Avatar" layout="fixed" width={45} height={45} />
