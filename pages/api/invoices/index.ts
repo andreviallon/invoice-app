@@ -10,7 +10,6 @@ export default async function handler(req, res) {
     case 'GET':
       try {
         const invoices = await Invoice.find({})
-        console.log('invoices =>', invoices);
         res.status(200).json({ success: true, data: invoices })
       } catch (error) {
         res.status(400).json({ success: false })

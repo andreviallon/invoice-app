@@ -1,13 +1,12 @@
 import Image from 'next/image';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ThemeEnum } from '../models/Theme';
+import { ThemeEnum } from 'models/Theme';
+import { useTheme } from 'next-themes';
 
-interface Props {
-    theme: ThemeEnum
-}
+const Narbar = () => {
+    const { theme, setTheme } = useTheme();
 
-const Narbar:React.FC<Props> = ({ theme }) => {
     const narbarStyles = `
         bg-gray
         w-full
@@ -36,7 +35,15 @@ const Narbar:React.FC<Props> = ({ theme }) => {
             </div>
             <div className="flex justify-end items-center w-full sm:flex-col flex-row pb-0 pr-4 sm:pb-4 sm:pr-0">
                 <div className="cursor-pointer p-6">
-                    {theme === ThemeEnum.LIGHT ? <FontAwesomeIcon className={iconStyles} icon={faMoon} /> : <FontAwesomeIcon className={iconStyles} icon={faSun} />}
+                    {theme === ThemeEnum.LIGHT ?
+                        <button onClick={() => setTheme(`${ThemeEnum.DARK}`)}>
+                            <FontAwesomeIcon className={iconStyles} icon={faSun} />
+                        </button>
+                        :
+                        <button onClick={() => setTheme(`${ThemeEnum.LIGHT}`)}>
+                            <FontAwesomeIcon className={iconStyles} icon={faMoon} />
+                        </button>
+                    }
                 </div>
                 <div className="hidden sm:block">
                     <Image src="/avatar.png" alt="Avatar" layout="fixed" width={56} height={56} />
