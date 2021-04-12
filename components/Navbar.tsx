@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ThemeEnum } from 'models/Theme';
 import { useTheme } from 'next-themes';
 
-const Narbar = () => {
+const Navbar = () => {
     const { theme, setTheme } = useTheme();
 
-    const narbarStyles = `
+    const navbarStyles = `
         bg-gray
         w-full
         h-16
@@ -19,12 +19,14 @@ const Narbar = () => {
         sm:flex-col
         sm:items-center
         sm:h-screen
-        `;
+
+        dark:bg-primary-dark
+    `;
 
     const iconStyles = `text-secondary-dark text-xl hover:text-secondary-light`;
 
     return (
-        <div className={`${narbarStyles} narbar`}>
+        <div className={`${navbarStyles} navbar`}>
             <div className="cursor-pointer w-16 sm:w-full">
                 <div className="hidden sm:block">
                     <Image src="/logo_with_background.svg" alt="Logo" layout="fixed" width={85} height={85} />
@@ -56,4 +58,4 @@ const Narbar = () => {
     )
 }
 
-export default Narbar
+export default Navbar
