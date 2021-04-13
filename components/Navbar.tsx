@@ -41,11 +41,11 @@ const Navbar = () => {
                 <div className="cursor-pointer p-6">
                     {loaded && theme === ThemeEnum.LIGHT ?
                         <button onClick={() => setTheme(`${ThemeEnum.DARK}`)}>
-                            <FontAwesomeIcon className={iconStyles} icon={faSun} />
+                            <FontAwesomeIcon className={iconStyles} icon={faMoon} />
                         </button>
                         :
                         <button onClick={() => setTheme(`${ThemeEnum.LIGHT}`)}>
-                            <FontAwesomeIcon className={iconStyles} icon={faMoon} />
+                            <FontAwesomeIcon className={iconStyles} icon={faSun} />
                         </button>
                     }
                 </div>
