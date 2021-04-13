@@ -20,12 +20,11 @@ const InvoiceDetailActions: React.FC<Props> = ({ invoiceStatus, editClicked, del
                 <Button text={'Delete'} buttonType={ButtonTypeEnum.DANGER} buttonClick={deleteClicked} />
             </div>
             <div className="ml-2">
-                {invoiceStatus === InvoiceStatusTypeEnum.PAID
-                    ?
+                {invoiceStatus === InvoiceStatusTypeEnum.PAID ? (
                     <Button text={'Mask as unpaid'} buttonType={ButtonTypeEnum.PRIMARY} buttonClick={markedAsPaidClicked} />
-                    :
+                ) : (
                     <Button text={'Mask as paid'} buttonType={ButtonTypeEnum.PRIMARY} buttonClick={markedAsUnpaidClicked} />
-                }
+                )}
             </div>
         </div>
     )

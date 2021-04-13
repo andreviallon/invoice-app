@@ -43,12 +43,11 @@ const InvoiceDetailHeader: React.FC<Props> = ({ invoiceStatus, editClicked, dele
                     <Button text={'Delete'} buttonType={ButtonTypeEnum.DANGER} buttonClick={deleteClicked} />
                 </div>
                 <div className="ml-2 hidden sm:block">
-                    {invoiceStatus === InvoiceStatusTypeEnum.PAID
-                        ?
+                    {invoiceStatus === InvoiceStatusTypeEnum.PAID ? (
                         <Button text={'Mask as unpaid'} buttonType={ButtonTypeEnum.PRIMARY} buttonClick={markedAsPaidClicked} />
-                        :
+                    ) : (
                         <Button text={'Mask as paid'} buttonType={ButtonTypeEnum.PRIMARY} buttonClick={markedAsUnpaidClicked} />
-                    }
+                    )}
                 </div>
             </div>
         </div>
