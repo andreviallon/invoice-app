@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ThemeEnum } from 'models/Theme';
+import { ThemeEnum } from '../models/Theme';
 import { useTheme } from 'next-themes';
+import { useLoaded } from 'customHooks/useLoaded';
 
 const Navbar = () => {
+    const loaded = useLoaded();
     const { theme, setTheme } = useTheme();
 
     const navbarStyles = `
@@ -37,7 +39,7 @@ const Navbar = () => {
             </div>
             <div className="flex justify-end items-center w-full sm:flex-col flex-row pb-0 pr-4 sm:pb-4 sm:pr-0">
                 <div className="cursor-pointer p-6">
-                    {theme === ThemeEnum.LIGHT ?
+                    {loaded && theme === ThemeEnum.LIGHT ?
                         <button onClick={() => setTheme(`${ThemeEnum.DARK}`)}>
                             <FontAwesomeIcon className={iconStyles} icon={faSun} />
                         </button>

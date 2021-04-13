@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-import InvoiceStatus from '../components/InvoiceStatus';
-import { PaymentTermsEnum } from './InvoiceTypes';
 
 /* PetSchema will correspond to a collection in your MongoDB database. */
 const InvoiceSchema = new mongoose.Schema({
@@ -69,7 +67,21 @@ const InvoiceSchema = new mongoose.Schema({
                 required: [true, 'Please provide an client country address for this invoice.']
             }
         }
-    }
+    },
+    itemList: [{
+        name: {
+            type: String,
+            required: [true, 'Please provide a name for this invoice item.']
+        },
+        quantity: {
+            type:  Number,
+            required: [true, 'Please provide a quantity for this invoice item.']
+        },
+        price: {
+            type:  Number,
+            required: [true, 'Please provide a price for this invoice item.']
+        }
+    }]
 })
 
 export default mongoose.models.Invoice || mongoose.model('Invoice', InvoiceSchema)
