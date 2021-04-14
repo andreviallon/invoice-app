@@ -24,6 +24,9 @@ const Home = () => {
       <div className="flex justify-between items-center mb-12">
         <h1 className="text-h1 font-bold dark:text-white">Invoices</h1>
       </div>
+
+      {error && <ErrorMessage />}
+
       {loading && (
         <div className="flex justify-center w-full">
           <LoadingSpinner/>
@@ -33,8 +36,6 @@ const Home = () => {
       {data && data.data.map(invoice => (
         <InvoiceCard key={invoice._id} invoice={invoice} cardClicked={() => handleCardClicked(invoice._id)} />
       ))}
-
-      {error && <ErrorMessage />}
     </Layout>
   )
 }
