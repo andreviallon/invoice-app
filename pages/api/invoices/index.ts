@@ -2,21 +2,25 @@ import dbConnect from '../../../utils/dbConnect';
 import Invoice from '../../../models/Invoice';
 
 export default async function handler(req, res) {
-  const { method } = req
+  const { method } = req;
 
-  await dbConnect()
+  await dbConnect();
 
   switch (method) {
     case 'GET':
-      try {
-        const invoices = await Invoice.find({})
-        res.status(200).json({ success: true, data: invoices })
-      } catch (error) {
-        res.status(400).json({ success: false })
-      }
-      break
+      getInvoices(res);
+      break;
     default:
-      res.status(400).json({ success: false })
-      break
+      res.status(400).json({ success: false });
+      break;
+  }
+}
+
+async function getInvoices(res) {
+  try {
+    const invoices = await Invoice.find({});
+    res.status(200).json({ success: true, data: invoices });
+  } catch (error) {
+    res.status(400).json({ success: false });
   }
 }
