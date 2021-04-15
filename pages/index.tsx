@@ -31,7 +31,7 @@ const Home = ({ invoices }) => {
       <div className="flex justify-between items-center mb-12">
         <div>
           <h1 className="text-h1 font-bold dark:text-white">Invoices</h1>
-          <p className="dark:text-white">{numberOfInvoices(invoices.length)}</p>
+          <p className="dark:text-white text-sm mt-2">{numberOfInvoices(invoices.length)}</p>
         </div>
         <div>
           <ButtonIcon text="New Invoice" buttonType={ButtonIconTypeEnum.PRIMARY} icon={faPlus} buttonClick={() => handleNewInvoiceClick()}/>
