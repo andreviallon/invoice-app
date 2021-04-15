@@ -42,7 +42,7 @@ const Home = () => {
       <div className="flex justify-between items-center mb-12">
         <div>
           <h1 className="text-h1 font-bold dark:text-white">Invoices</h1>
-          {data && numberOfInvoices(data.data.length)}
+          {data && <p className="dark:text-white">{numberOfInvoices(data.data.length)}</p>}
         </div>
         <div>
           <ButtonIcon text="New Invoice" buttonType={ButtonIconTypeEnum.PRIMARY} icon={faPlus} buttonClick={() => handleNewInvoiceClick()}/>
