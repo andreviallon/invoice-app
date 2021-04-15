@@ -5,8 +5,13 @@ import ErrorMessage from '../components/ErrorMessage';
 import connectToDatabase from 'utils/connectToDatabase';
 import { ButtonIconTypeEnum } from 'models/ButtonTypes';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { InvoiceType } from 'models/InvoiceTypes';
 
-const Home = ({ invoices }) => {
+interface Props {
+  invoices: InvoiceType[]
+}
+
+const Home: React.FC<Props> = ({ invoices }) => {
   const numberOfInvoices = (numOfInvoices: number): string => {
     if (numOfInvoices === 0) {
       return 'No invoices';
