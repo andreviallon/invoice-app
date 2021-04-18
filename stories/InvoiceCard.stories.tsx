@@ -51,6 +51,5 @@ InvoiceStory.args = {
 
 export default {
     title: 'InvoiceCard',
-    component: InvoiceCard,
-    argTypes: { cardClicked: { action: 'card clicked' } }
+    component: InvoiceCard
 };

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { InvoiceType } from '../models/InvoiceTypes';
 import InvoiceStatus from './InvoiceStatus';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,10 +8,9 @@ import Moment from 'react-moment';
 
 interface Props {
     invoice: InvoiceType;
-    cardClicked: () => void;
 }
 
-const InvoiceCard: React.FC<Props> = ({ invoice, cardClicked }) => {
+const InvoiceCard: React.FC<Props> = ({ invoice }) => {
     const cardClasses = `
         p-4
         border-2
@@ -39,19 +39,23 @@ const InvoiceCard: React.FC<Props> = ({ invoice, cardClicked }) => {
     `;
 
     return (
-        <div className={cardClasses} onClick={cardClicked}>
-            <div className="text-center">
-                <span className="text-primary-regular text-sm font-bold text-center">#</span>
-                <span className="text-black text-sm font-bold text-center dark:text-white">{invoice.index}</span>
+        <Link key={invoice._id} href={`/${invoice._id}`}>
+          <a>
+            <div className={cardClasses}>
+                <div className="text-center">
+                    <span className="text-primary-regular text-sm font-bold text-center">#</span>
+                    <span className="text-black text-sm font-bold text-center dark:text-white">{invoice.index}</span>
+                </div>
+                <span className="text-secondary-dark text-sm font-medium text-center dark:text-white">Due <Moment format="DD MMM YYYY" date={invoice.invoiceDate} /></span>
+                <span className="text-secondary-dark text-sm font-medium text-center dark:text-white">{invoice.client.name}</span>
+                <span className="text-black font-bold text-center dark:text-white">DKK {totalPrice(invoice.itemList)}</span>
+                <div className="col-span-2">
+                    <InvoiceStatus invoiceStatus={invoice.status} />
+                </div>
+                <FontAwesomeIcon className="text-primary-regular hidden sm:block" icon={faAngleRight} />
             </div>
-            <span className="text-secondary-dark text-sm font-medium text-center dark:text-white">Due <Moment format="DD MMM YYYY" date={invoice.invoiceDate} /></span>
-            <span className="text-secondary-dark text-sm font-medium text-center dark:text-white">{invoice.client.name}</span>
-            <span className="text-black font-bold text-center dark:text-white">DKK {totalPrice(invoice.itemList)}</span>
-            <div className="col-span-2">
-                <InvoiceStatus invoiceStatus={invoice.status} />
-            </div>
-            <FontAwesomeIcon className="text-primary-regular hidden sm:block" icon={faAngleRight} />
-        </div>
+          </a>
+        </Link>
     )
 }
 
