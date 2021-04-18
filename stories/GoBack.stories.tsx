@@ -6,6 +6,5 @@ export const GoBackStory = Story.bind({})
 
 export default {
     title: 'GoBack',
-    component: GoBack,
-    argTypes: { goBackClick: { action: 'clicked' } }
+    component: GoBack
 };

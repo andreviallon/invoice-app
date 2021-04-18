@@ -1,16 +1,18 @@
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
+import React from 'react';
 
-interface Props {
-    goBackClick: () => void;
-}
-
-const GoBack: React.FC<Props> = ({ goBackClick }) => {
+const GoBack = () => {
     return (
-        <div className="flex items-center cursor-pointer hover:text-secondary-dark dark:text-white dark:hover:text-secondary-regular" onClick={goBackClick}>
-            <FontAwesomeIcon className="text-primary-regular mr-2" icon={faAngleLeft} />
-            <p className="font-bold text-sm">Go Back</p>
-        </div>
+        <Link href={'/'}>
+            <a>
+                <div className="flex items-center cursor-pointer hover:text-secondary-dark dark:text-white dark:hover:text-secondary-regular">
+                    <FontAwesomeIcon className="text-primary-regular mr-2" icon={faAngleLeft} />
+                    <p className="font-bold text-sm">Go Back</p>
+                </div>
+            </a>
+        </Link>
     )
 }
 
