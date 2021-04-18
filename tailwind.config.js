@@ -11,7 +11,7 @@ module.exports = {
       'jumbotron': '7.5rem'
     },
     screens: {
-      'sm': '640px',
+      'sm': '740px',
       'md': '768px',
       'lg': '1024px',
       'xl': '1280px',
