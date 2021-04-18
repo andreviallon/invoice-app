@@ -26,13 +26,8 @@ const Home: React.FC<Props> = ({ invoices }) => {
     console.log('handleNewInvoiceClick');
   }
 
-  const handleCardClicked = (id: string) => {
-    console.log('handleCardClicked', id);
-  };
-
-
   return (
-    <Layout>
+    <>
       <div className="flex justify-between items-center mb-12">
         <div>
           <h1 className="text-h1 font-bold dark:text-white">Invoices</h1>
@@ -44,11 +39,11 @@ const Home: React.FC<Props> = ({ invoices }) => {
       </div>
 
       {invoices.map(invoice => (
-        <InvoiceCard key={invoice._id} invoice={invoice} cardClicked={() => handleCardClicked(invoice._id)} />
+        <InvoiceCard key={invoice._id} invoice={invoice} />
       ))}
 
       {!invoices && <ErrorMessage />}
-    </Layout>
+    </>
   )
 }
 
