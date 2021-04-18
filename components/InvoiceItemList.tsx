@@ -1,3 +1,4 @@
+import React from 'react';
 import { Item } from '../models/InvoiceTypes';
 import totalPrice from '../utils/totalPrice';
 
@@ -15,17 +16,17 @@ const InvoiceItemList: React.FC<Props> = ({ itemList }) => {
                 <p className="text-right text-xs text-secondary-dark dark:text-secondary-light font-medium">Price</p>
                 <p className="text-right text-xs text-secondary-dark dark:text-secondary-light font-medium">Total</p>
                 {itemList.map(item => (
-                    <>
+                    <React.Fragment key={item.name}>
                         <p className="col-span-2 font-bold text-sm text-secondary-veryDark dark:text-white">{item.name}</p>
                         <p className="text-right font-bold text-sm text-secondary-dark dark:text-white">{item.quantity}</p>
                         <p className="text-right font-bold text-sm text-secondary-dark dark:text-white">${item.price}</p>
                         <p className="text-right font-bold text-sm text-secondary-veryDark dark:text-white">${item.total}</p>
-                    </>
+                    </React.Fragment>
                 ))}
             </div>
             <div className="px-12 pt-8 pb-4 flex flex-col sm:hidden">
                 {itemList.map(item => (
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="flex justify-between items-center mb-4" key={item.name}>
                         <div className="flex flex-col">
                             <p className="font-bold text-sm text-secondary-veryDark dark:text-white mb-1">{item.name}</p>
                             <p className="font-bold text-sm text-secondary-dark dark:text-secondary-regular">{item.quantity} x ${item.price}</p>
