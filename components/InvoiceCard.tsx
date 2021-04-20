@@ -42,13 +42,10 @@ const InvoiceCard: React.FC<Props> = ({ invoice }) => {
         <Link key={invoice._id} href={`/${invoice._id}`}>
           <a>
             <div className={cardClasses}>
-                <div className="text-center">
-                    <span className="text-primary-regular text-sm font-bold text-center">#</span>
-                    <span className="text-black text-sm font-bold text-center dark:text-white">{invoice.index}</span>
-                </div>
+                <span className="text-black text-sm font-bold text-center">{invoice.projectDescription}</span>
                 <span className="text-secondary-dark text-sm font-medium text-center dark:text-white">Due <Moment format="DD MMM YYYY" date={invoice.invoiceDate} /></span>
                 <span className="text-secondary-dark text-sm font-medium text-center dark:text-white">{invoice.client.name}</span>
-                <span className="text-black font-bold text-center dark:text-white">DKK {totalPrice(invoice.itemList)}</span>
+                <span className="text-secondary-dark text-sm font-medium text-center dark:text-white">DKK {totalPrice(invoice.itemList)}</span>
                 <div className="col-span-2">
                     <InvoiceStatus invoiceStatus={invoice.status} />
                 </div>
