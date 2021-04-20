@@ -149,10 +149,10 @@ const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
                     <div className="col-span-2 sm:col-span-1 mb-6">
                         <InputField
                             label='Country'
-                            name ='country'
-                            value={values.country}
-                            error={errors.country}
-                            touched={touched.country}
+                            name ='clientCountry'
+                            value={values.clientCountry}
+                            error={errors.clientCountry}
+                            touched={touched.clientCountry}
                             onChange={handleChange}
                             onBlur={handleBlur} />
                     </div>
