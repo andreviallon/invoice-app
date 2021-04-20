@@ -29,7 +29,6 @@ export type Item = {
 
 export type InvoiceType = {
     _id: string;
-    index: string;
     invoiceDate: Date;
     paymentTerms: PaymentTermsEnum;
     address: Address;

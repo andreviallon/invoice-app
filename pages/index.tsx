@@ -1,17 +1,18 @@
 import InvoiceCard from 'components/InvoiceCard';
-import Layout from '../components/Layout';
 import ButtonIcon from '../components/ButtonIcon';
 import ErrorMessage from '../components/ErrorMessage';
 import connectToDatabase from 'utils/connectToDatabase';
 import { ButtonIconTypeEnum } from 'models/ButtonTypes';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { InvoiceType } from 'models/InvoiceTypes';
+import Link from 'next/link';
 
 interface Props {
   invoices: InvoiceType[]
 }
 
 const Home: React.FC<Props> = ({ invoices }) => {
+
   const numberOfInvoices = (numOfInvoices: number): string => {
     if (numOfInvoices === 0) {
       return 'No invoices';
@@ -22,10 +23,6 @@ const Home: React.FC<Props> = ({ invoices }) => {
     }
   }
 
-  const handleNewInvoiceClick = () => {
-    console.log('handleNewInvoiceClick');
-  }
-
   return (
     <>
       <div className="flex justify-between items-center mb-12">
@@ -34,7 +31,11 @@ const Home: React.FC<Props> = ({ invoices }) => {
           <p className="dark:text-white text-sm mt-2">{numberOfInvoices(invoices.length)}</p>
         </div>
         <div>
-          <ButtonIcon text="New Invoice" buttonType={ButtonIconTypeEnum.PRIMARY} icon={faPlus} buttonClick={() => handleNewInvoiceClick()}/>
+          <Link href='newInvoice'>
+            <a>
+              <ButtonIcon text="New Invoice" buttonType={ButtonIconTypeEnum.PRIMARY} icon={faPlus} />
+            </a>
+          </Link>
         </div>
       </div>
 

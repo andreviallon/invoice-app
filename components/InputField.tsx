@@ -1,21 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ChangeEvent } from 'react'
 
 interface Props {
     label: string;
-    defaultInput?: string;
-    placeholder: string;
-    onInputChange: (inputValue: string) => void;
+    name: string;
+    value?: string;
+    placeholder?: string;
+    error: string;
+    touched?: boolean;
+    onChange: (e: ChangeEvent<any>) => void;
+    onBlur: (e) => void;
 }
 
-const InputField: React.FC<Props> = ({ label, defaultInput, placeholder, onInputChange }) => {
-    const [inputValue, setInputValue] = useState(defaultInput ? defaultInput : '');
-
-    useEffect(() => {
-        onInputChange(inputValue);
-    }, [inputValue]);
-
-    const handleChange = event => setInputValue(event.target.value);
-
+const InputField: React.FC<Props> = ({ label, name, value, placeholder, error, touched, onChange, onBlur }) => {
     const inputClasses = `
         border-secondary-light
         border
@@ -36,7 +32,7 @@ const InputField: React.FC<Props> = ({ label, defaultInput, placeholder, onInput
     return (
         <div className="flex flex-col">
             <label className="text-secondary-dark text-xs font-medium mb-2 dark:text-secondary-light">{label}</label>
-            <input className={inputClasses} placeholder={placeholder} value={inputValue} onChange={handleChange} />
+            <input name={name} className={inputClasses} placeholder={placeholder} value={value} onChange={onChange} onBlur={onBlur} />
         </div>
     )
 }

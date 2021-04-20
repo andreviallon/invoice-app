@@ -6,7 +6,7 @@ interface Props {
     text: string;
     buttonType: ButtonIconTypeEnum;
     icon: IconProp;
-    buttonClick: () => void;
+    buttonClick?: () => void;
 }
 
 const ButtonIcon: React.FC<Props> = ({ text, buttonType, icon, buttonClick }) => {
