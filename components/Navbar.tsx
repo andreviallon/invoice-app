@@ -17,6 +17,7 @@ const Navbar = () => {
         flex-row
         justify-between
         w-24
+        fixed
       
         sm:flex-col
         sm:items-center
