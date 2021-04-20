@@ -13,8 +13,7 @@ const InvoiceDetail: React.FC<Props> = ({ invoice }) => {
         <div className="bg-white dark:bg-primary-dark p-6 sm:p-16 shadow-lg rounded-lg">
             <div className="flex justify-between mb-8">
                 <div className="flex flex-col">
-                    <p className="font-bold mb-2 dark:text-white"><span className="text-secondary-regular">#</span>{invoice.index}</p>
-                    <p className="font-medium text-sm text-secondary-dark dark:text-secondary-light">{invoice.projectDescription}</p>
+                    <p className="font-bold mb-2 dark:text-white">{invoice.projectDescription}</p>
                 </div>
                 <div className="flex flex-col">
                     <p className="font-medium text-sm text-secondary-dark dark:text-secondary-light text-right mb-1">{invoice.address.street}</p>
