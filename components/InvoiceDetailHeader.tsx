@@ -31,7 +31,7 @@ const InvoiceDetailHeader: React.FC<Props> = ({ invoiceStatus, editClicked, dele
 
     return (
         <div className={cardClasses}>
-            <div className="flex items-center w-full sm:w-auto">
+            <div className="flex items-center justify-between w-full sm:w-auto">
                 <span className="text-secondary-dark text-sm font-medium text-center dark:text-white mr-4">Status</span>
                 <InvoiceStatus invoiceStatus={invoiceStatus} />
             </div>

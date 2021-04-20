@@ -9,7 +9,6 @@ const InvoiceStatus: React.FC<Props> = ({ invoiceStatus }) => {
         let classes: string = `
             flex
             items-baseline
-            w-full
             py-4
             px-8
             rounded-lg
@@ -18,8 +17,6 @@ const InvoiceStatus: React.FC<Props> = ({ invoiceStatus }) => {
             bg-opacity-10
             flex
             justify-center
-
-            sm:w-max
         `;
         
         if (invoiceStatus === InvoiceStatusTypeEnum.PAID) {

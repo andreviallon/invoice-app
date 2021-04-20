@@ -24,7 +24,6 @@ const Button: React.FC<Props> = ({ text, buttonType, buttonClick }) => {
                 dark:bg-primary-veryDark
                 dark:text-secondary-regular
                 dark:hover:bg-white
-                dark:hover:text-primary-veryLight
             `;
         }
 
@@ -35,7 +34,7 @@ const Button: React.FC<Props> = ({ text, buttonType, buttonClick }) => {
                 bg-primary-veryDark
                 hover:bg-black
 
-                dark:text-secondary-light
+                dark:text-red
                 :hover:dark:bg-primary-dark
             `;
         }
