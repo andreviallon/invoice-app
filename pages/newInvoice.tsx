@@ -13,7 +13,7 @@ const newInvoice = () => {
             <div className="mb-6">
                 <GoBack />
             </div>
-            <h1 className="text-h1 font-bold mb-8">New Invoice</h1>
+            <h1 className="text-h1 font-bold mb-8 dark:text-white">New Invoice</h1>
             <div className="mt-6">
                 <InvoiceForm  submitInvoice={(invoice) => handleSubmit(invoice)} />
             </div>
