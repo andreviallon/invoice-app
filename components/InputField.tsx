@@ -8,7 +8,7 @@ interface Props {
     error: string;
     touched?: boolean;
     onChange: (e: ChangeEvent<any>) => void;
-    onBlur: (e) => void;
+    onBlur: (e: ChangeEvent<any>) => void;
 }
 
 const InputField: React.FC<Props> = ({ label, name, value, placeholder, error, touched, onChange, onBlur }) => {
