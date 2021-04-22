@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import Select from 'react-select-me';
+import { ChangeEvent } from 'react';
 
 interface Props {
     label: string;
+    name: string;
     defaultSelectOption: string;
     selectOptions: string[];
-    onSelectChange: (inputValue: string) => void;
+    error: string;
+    touched: boolean;
+    onChange: (e: ChangeEvent<any>) => void;
+    onBlur: (e: ChangeEvent<any>) => void;
 }
 
-const InputSelect: React.FC<Props> = ({ label, defaultSelectOption, selectOptions, onSelectChange }) => {
-    const [selectValue, setSelectValue] = useState(defaultSelectOption ? defaultSelectOption : selectOptions[0]);
-
-    useEffect(() => {
-        onSelectChange(selectValue);
-    }, [selectValue]);
-
-    const handleChange = event => setSelectValue(event.value);
-
+const InputSelect: React.FC<Props> = ({ label, name, defaultSelectOption, selectOptions, error, touched, onChange, onBlur }) => {
     return (
         <div className="flex flex-col relative">
-            <label className="text-secondary-dark text-xs font-medium mb-2 dark:text-secondary-light">{label}</label>
-            <Select options={selectOptions} value={selectValue} onChange={handleChange} />
+            <label htmlFor="select" className="text-secondary-dark text-xs font-medium mb-2 dark:text-secondary-light">{label}</label>
+            <select name={name} value={defaultSelectOption} onChange={onChange} onBlur={onBlur} className="appearance-none">
+                {selectOptions.map(option => (
+                    <option key={option} value={option} label={option} />
+                ))}
+            </select>
          </div>
     );
 }
