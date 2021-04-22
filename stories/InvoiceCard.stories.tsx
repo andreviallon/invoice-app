@@ -4,7 +4,6 @@ import { InvoiceType, PaymentTermsEnum } from '../models/InvoiceTypes';
 
 const invoice: InvoiceType = {
     _id: '1',
-    index: 'XM9141',
     invoiceDate: new Date(),
     paymentTerms: PaymentTermsEnum.NEXT_MONTH,
     address: {
