@@ -1,8 +1,10 @@
-import { InvoiceType } from 'models/InvoiceTypes';
+import { InvoiceType, PaymentTermsEnum } from 'models/InvoiceTypes';
 import { Formik } from 'Formik';
 import InputField from './InputField';
 import * as Yup from 'yup';
 import SectionHeader from './SectionHeader';
+import InputDatePicker from './InputDatePicker';
+import InputSelect from './InputSelect';
 
 interface Props {
     invoice?: InvoiceType;
@@ -10,6 +12,13 @@ interface Props {
 }
 
 const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
+    const paymentTermsOptions: PaymentTermsEnum[] = [
+        PaymentTermsEnum.NEXT_DAY,
+        PaymentTermsEnum.NEXT_WEEK,
+        PaymentTermsEnum.NEXT_TWO_WEEKS,
+        PaymentTermsEnum.NEXT_MONTH
+    ];
+
     return (
         <Formik
             initialValues={{
@@ -24,7 +33,7 @@ const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
                 clientZipcode: invoice?.client.address.zipcode ? invoice.client.address.zipcode : '',
                 clientCountry: invoice?.client.address.country ? invoice.client.address.country : '',
                 invoiceDay: invoice?.invoiceDate ? invoice.invoiceDate : '',
-                paymentTerms: invoice?.paymentTerms ? invoice.paymentTerms : '',
+                paymentTerms: invoice?.paymentTerms ? invoice.paymentTerms : paymentTermsOptions[0],
                 projectDescription: invoice?.projectDescription ? invoice.projectDescription : '',
                 itemList: invoice?.itemList ? invoice.itemList : []
             }}
@@ -155,6 +164,29 @@ const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
                             touched={touched.clientCountry}
                             onChange={handleChange}
                             onBlur={handleBlur} />
+                    </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+                    <div className="col-span-2 sm:col-span-1 mb-6">
+                        <InputDatePicker
+                            label='Invoice Date'
+                            name='invoiceDay'
+                            selectedDate={values.invoiceDay}
+                            onDateChange={handleChange}
+                            error={errors.clientCity}
+                            touched={touched.clientCity} />
+                    </div>
+                    <div className="col-span-2 sm:col-span-1 mb-6">
+                        <InputSelect
+                            label='Payment Terms'
+                            name='paymentTerms'
+                            defaultSelectOption={values.paymentTerms}
+                            selectOptions={paymentTermsOptions}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={errors.paymentTerms}
+                            touched={touched.paymentTerms} />
+                        <p>paymentTerms {values.paymentTerms}</p>
                     </div>
                 </div>
             </form>
