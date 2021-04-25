@@ -1,5 +1,5 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import InputError from './InputError';
 
 interface Props {
     label: string;
@@ -7,26 +7,26 @@ interface Props {
     selectedDate?: string | Date;
     error: string;
     touched: boolean;
-    onDateChange: (date: ChangeEvent) => void;
+    onChange: (date: ChangeEvent) => void;
 
 }
 
-const InputDatePicker: React.FC<Props> = ({ label, name, selectedDate, error, touched, onDateChange }) => {
-    const [date, setDate] = useState(selectedDate);
+const InputDatePicker: React.FC<Props> = ({ label, name, selectedDate, error, touched, onChange }) => {
+    const containerClasses = (): string => {
+        let classes = `flex flex-col relative`;
 
-    useEffect(() => {
-        setDate(date);
-    }, [date]);
+        if (error && touched) {
+            classes = `${classes} error`;
+        }
 
-    const handleChange = (date) => {
-        console.log('date', date);
-        onDateChange(date.toString());
+        return classes
     }
 
     return (
-        <div className="flex flex-col relative">
+        <div className={containerClasses()}>
             <label className="text-secondary-dark text-xs font-medium mb-2 dark:text-secondary-light" htmlFor={name}>{label}</label>
-            <input type="date" name={name} id={name} onChange={date => onDateChange(date)} />
+            <input type="date" name={name} id={name} onChange={date => onChange(date)} />
+            {error && <InputError errorMessage={error} />}
          </div>
     );
 }

@@ -172,7 +172,7 @@ const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
                             label='Invoice Date'
                             name='invoiceDay'
                             selectedDate={values.invoiceDay}
-                            onDateChange={handleChange}
+                            onChange={handleChange}
                             error={errors.clientCity}
                             touched={touched.clientCity} />
                     </div>
@@ -186,7 +186,6 @@ const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
                             onBlur={handleBlur}
                             error={errors.paymentTerms}
                             touched={touched.paymentTerms} />
-                        <p>paymentTerms {values.paymentTerms}</p>
                     </div>
                 </div>
             </form>
