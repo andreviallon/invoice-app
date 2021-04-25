@@ -40,3 +40,15 @@ body {
 .modal-window {
   margin-left: 85px;
 }
+
+.error {
+  color: red;
+
+  label {
+    color: red;
+  }
+
+  input, select {
+    border-color: red;
+  }
+}
