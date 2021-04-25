@@ -1,6 +1,10 @@
 import Navbar from './Navbar';
 
-export default function Layout({ children }) {
+interface Props {
+    children: React.ReactNode;
+}
+
+const Layout: React.FC<Props> = ({ children }) => {
     return (
         <div className="flex flex-col sm:flex-row">
             <Navbar />
@@ -12,3 +16,5 @@ export default function Layout({ children }) {
         </div>
     );
 }
+
+export default Layout

@@ -1,4 +1,5 @@
-import { useState, useEffect, ChangeEvent } from 'react'
+import { ChangeEvent } from 'react';
+import InputError from './InputError';
 
 interface Props {
     label: string;
@@ -12,6 +13,16 @@ interface Props {
 }
 
 const InputField: React.FC<Props> = ({ label, name, value, placeholder, error, touched, onChange, onBlur }) => {
+    const containerClasses = (): string => {
+        let classes = `flex flex-col`;
+
+        if (error && touched) {
+            classes = `${classes} error`;
+        }
+
+        return classes
+    }
+
     const inputClasses = `
         border-secondary-light
         border
@@ -30,9 +41,10 @@ const InputField: React.FC<Props> = ({ label, name, value, placeholder, error, t
         focus:outline-none`;
 
     return (
-        <div className="flex flex-col">
+        <div className={containerClasses()}>
             <label className="text-secondary-dark text-xs font-medium mb-2 dark:text-secondary-light">{label}</label>
             <input name={name} className={inputClasses} placeholder={placeholder} value={value} onChange={onChange} onBlur={onBlur} />
+            {error && <InputError errorMessage={error} />}
         </div>
     )
 }
