@@ -39,16 +39,16 @@ const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
             }}
             onSubmit={values => submitInvoice(values)}
             validationSchema={Yup.object().shape({
-                streetAddress: Yup.string().email().required('Street address is required'),
-                city: Yup.string().email().required('City is required'),
-                zipcode: Yup.string().email().required('Zipcode is required'),
-                country: Yup.string().email().required('Country is required'),
-                clientName: Yup.string().email().required('Client name is required'),
+                streetAddress: Yup.string().required('Street address is required'),
+                city: Yup.string().required('City is required'),
+                zipcode: Yup.string().required('Zipcode is required'),
+                country: Yup.string().required('Country is required'),
+                clientName: Yup.string().required('Client name is required'),
                 clientEmail: Yup.string().email().required('Client email is required'),
-                clientStreetAddress: Yup.string().email().required('Client street address is required'),
-                clientCity: Yup.string().email().required('Client city is required'),
-                clientZipcode: Yup.string().email().required('Client zipcode is required'),
-                clientCountry: Yup.string().email().required('Client country is required'),
+                clientStreetAddress: Yup.string().required('Client street address is required'),
+                clientCity: Yup.string().required('Client city is required'),
+                clientZipcode: Yup.string().required('Client zipcode is required'),
+                clientCountry: Yup.string().required('Client country is required'),
                 invoiceDay: Yup.date().required('Invoice date is required'),
                 paymentTerms: Yup.string().required('Payment terms is required'),
                 projectDescription: Yup.string().required('Project description is required'),
@@ -56,7 +56,7 @@ const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
             })}
         >
         {props => {
-          const { values, touched, errors, dirty, isSubmitting, handleChange, handleBlur, handleSubmit, handleReset } = props;
+          const { values, touched, errors, handleChange, handleBlur, handleSubmit } = props;
           return (
             <form onSubmit={handleSubmit}>
                 <SectionHeader text="Bill From" />
@@ -186,6 +186,18 @@ const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
                             onBlur={handleBlur}
                             error={errors.paymentTerms}
                             touched={touched.paymentTerms} />
+                    </div>
+                </div>
+                <div className="grid grid-cols-1">
+                    <div className="col-span-1 sm:col-span-1 mb-6">
+                        <InputField
+                            label='Project Description'
+                            name ='projectDescription'
+                            value={values.projectDescription}
+                            error={errors.projectDescription}
+                            touched={touched.projectDescription}
+                            onChange={handleChange}
+                            onBlur={handleBlur} />
                     </div>
                 </div>
             </form>
