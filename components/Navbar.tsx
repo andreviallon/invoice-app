@@ -26,7 +26,7 @@ const Navbar = () => {
         dark:bg-primary-dark
     `;
 
-    const iconStyles = `text-secondary-dark text-xl hover:text-secondary-light`;
+    const iconStyles = `text-secondary-dark text-xl hover:text-secondary-light cursor-pointer outline-none`;
 
     return (
         <div className={`${navbarStyles} navbar`}>
@@ -39,7 +39,7 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="flex justify-end items-center w-full sm:flex-col flex-row pb-0 pr-4 sm:pb-4 sm:pr-0">
-                <div className="cursor-pointer p-6">
+                <div className="m-8">
                     {loaded && theme === ThemeEnum.LIGHT ?
                         <button onClick={() => setTheme(`${ThemeEnum.DARK}`)}>
                             <FontAwesomeIcon className={iconStyles} icon={faMoon} />
@@ -49,7 +49,7 @@ const Navbar = () => {
                             <FontAwesomeIcon className={iconStyles} icon={faSun} />
                         </button>
                     }
-                </div>
+                    </div>
                 <div className="hidden sm:block">
                     <Image src="/avatar.png" alt="Avatar" layout="fixed" width={56} height={56} />
                 </div>
