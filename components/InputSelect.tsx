@@ -49,7 +49,7 @@ const InputSelect: React.FC<Props> = ({ label, name, defaultSelectOption, select
                     <option key={option} value={option} label={option} />
                 ))}
             </select>
-            {error && <InputError errorMessage={error} />}
+            {error && touched && <InputError errorMessage={error} />}
          </div>
     );
 }

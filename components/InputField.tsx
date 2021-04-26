@@ -20,7 +20,7 @@ const InputField: React.FC<Props> = ({ label, name, value, placeholder, error, t
             classes = `${classes} error`;
         }
 
-        return classes
+        return classes;
     }
 
     const inputClasses = `
@@ -44,7 +44,7 @@ const InputField: React.FC<Props> = ({ label, name, value, placeholder, error, t
         <div className={containerClasses()}>
             <label className="text-secondary-dark text-xs font-medium mb-2 dark:text-secondary-light">{label}</label>
             <input name={name} className={inputClasses} placeholder={placeholder} value={value} onChange={onChange} onBlur={onBlur} />
-            {error && <InputError errorMessage={error} />}
+            {error && touched && <InputError errorMessage={error} />}
         </div>
     )
 }
