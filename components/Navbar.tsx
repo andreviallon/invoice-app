@@ -10,23 +10,14 @@ const Navbar = () => {
     const { theme, setTheme } = useTheme();
 
     const navbarStyles = `
-        bg-gray
-        w-full
-        h-16
-        flex
-        flex-row
-        justify-between
-        w-24
-        fixed
+        bg-gray w-full h-16 flex flex-row justify-between w-24 fixed
       
-        sm:flex-col
-        sm:items-center
-        sm:h-screen
+        sm:flex-col sm:items-center sm:h-screen
 
         dark:bg-primary-dark
     `;
 
-    const iconStyles = `text-secondary-dark text-xl hover:text-secondary-light cursor-pointer outline-none`;
+    const iconStyles = 'text-secondary-dark text-xl hover:text-secondary-light cursor-pointer outline-none';
 
     return (
         <div className={`${navbarStyles} navbar`}>

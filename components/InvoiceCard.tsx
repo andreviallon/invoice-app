@@ -12,29 +12,11 @@ interface Props {
 
 const InvoiceCard: React.FC<Props> = ({ invoice }) => {
     const cardClasses = `
-        p-4
-        border-2
-        bg-white
-        flex-col
-        shadow-lg
-        rounded-lg
-        border-white
-        cursor-pointer
-        grid
-        grid-cols-2
-        gap-4
-
-        sm:p-8
-        sm:flex
-        sm:flex-row
-        sm:items-center
-        sm:justify-between
-
+        grid grid-cols-2 gap-4 p-4 border-2 bg-white flex-col shadow-lg rounded-lg border-white cursor-pointer
+        sm:p-8 sm:flex sm:flex-row sm:items-center sm:justify-between
         hover:border-primary-regular
 
-        dark:border-primary-dark
-        dark:bg-primary-dark
-
+        dark:border-primary-dark dark:bg-primary-dark
         dark:hover:border-primary-regular
     `;
 

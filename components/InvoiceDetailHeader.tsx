@@ -13,20 +13,8 @@ interface Props {
 
 const InvoiceDetailHeader: React.FC<Props> = ({ invoiceStatus, editClicked, deleteClicked, markedAsPaidClicked, markedAsUnpaidClicked }) => {
     const cardClasses = `
-        px-8
-        py-6
-        border-2
-        bg-white
-        shadow-lg
-        rounded-lg
-        border-white
-        flex
-        flex-row
-        items-center
-        justify-between
-
-        dark:border-primary-dark
-        dark:bg-primary-dark
+        px-8 py-6 border-2 bg-white shadow-lg rounded-lg border-white flex flex-row items-center justify-between
+        dark:border-primary-dark dark:bg-primary-dark
     `;
 
     return (

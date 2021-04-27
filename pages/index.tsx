@@ -8,7 +8,7 @@ import { InvoiceType } from 'models/InvoiceTypes';
 import Link from 'next/link';
 
 interface Props {
-  invoices: InvoiceType[]
+  invoices: InvoiceType[];
 }
 
 const Home: React.FC<Props> = ({ invoices }) => {

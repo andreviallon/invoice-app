@@ -3,7 +3,7 @@ import { Item } from '../models/InvoiceTypes';
 import totalPrice from '../utils/totalPrice';
 
 interface Props {
-    itemList: Item[]
+    itemList: Item[];
 }
 
 const InvoiceItemList: React.FC<Props> = ({ itemList }) => {

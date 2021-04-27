@@ -8,32 +8,39 @@ export enum PaymentTermsEnum {
 }
 
 export type Address = {
-    street: string;
-    city: string;
-    zipcode: string;
-    country: string;
+    street?: string;
+    city?: string;
+    zipcode?: string;
+    country?: string;
 }
 
 export type Client = {
-    name: string;
-    email: string;
-    address: Address;
+    name?: string;
+    email?: string;
+    address?: Address;
 }
 
 export type Item = {
-    name: string;
-    quantity: number;
-    price: number;
-    total: number;
+    name?: string;
+    quantity?: number;
+    price?: number;
+    total?: number;
 }
 
 export type InvoiceType = {
-    _id: string;
-    invoiceDate: Date;
-    paymentTerms: PaymentTermsEnum;
-    address: Address;
-    client: Client;
-    status: InvoiceStatusTypeEnum;
-    projectDescription: string;
-    itemList: Item[]
+    _id?: string;
+    invoiceDate?: Date;
+    paymentTerms?: PaymentTermsEnum;
+    address?: Address;
+    client?: Client;
+    status?: InvoiceStatusTypeEnum;
+    projectDescription?: string;
+    itemList?: Item[]
 }
+
+export const paymentTermsOptions: PaymentTermsEnum[] = [
+    PaymentTermsEnum.NEXT_DAY,
+    PaymentTermsEnum.NEXT_WEEK,
+    PaymentTermsEnum.NEXT_TWO_WEEKS,
+    PaymentTermsEnum.NEXT_MONTH
+];

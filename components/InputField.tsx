@@ -16,9 +16,7 @@ const InputField: React.FC<Props> = ({ label, name, value, placeholder, error, t
     const containerClasses = (): string => {
         let classes = `flex flex-col`;
 
-        if (error && touched) {
-            classes = `${classes} error`;
-        }
+        if (error && touched) classes = `${classes} error`;
 
         return classes;
     }

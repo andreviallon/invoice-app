@@ -16,11 +16,9 @@ const InputSelect: React.FC<Props> = ({ label, name, defaultSelectOption, select
     const containerClasses = (): string => {
         let classes = `flex flex-col relative`;
 
-        if (error && touched) {
-            classes = `${classes} error`;
-        }
+        if (error && touched) classes = `${classes} error`;
 
-        return classes
+        return classes;
     }
 
     const selectClasses = `

@@ -5,7 +5,7 @@ import PaymentDue from './PaymentDue';
 import InvoiceItemList from '../components/InvoiceItemList';
 
 interface Props {
-    invoice: InvoiceType
+    invoice: InvoiceType;
 }
 
 const InvoiceDetail: React.FC<Props> = ({ invoice }) => {
