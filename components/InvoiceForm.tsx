@@ -1,23 +1,39 @@
-import { InvoiceType, PaymentTermsEnum } from 'models/InvoiceTypes';
+import { InvoiceType, paymentTermsOptions } from 'models/InvoiceTypes';
 import { Formik } from 'Formik';
 import InputField from './InputField';
 import * as Yup from 'yup';
 import SectionHeader from './SectionHeader';
 import InputDatePicker from './InputDatePicker';
 import InputSelect from './InputSelect';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
+import ButtonIcon from './ButtonIcon';
+import { ButtonIconTypeEnum, ButtonTypeEnum } from '../models/ButtonTypes';
+import Button from './Button';
 
 interface Props {
     invoice?: InvoiceType;
-    submitInvoice: (invoice) => void;
+    submitInvoice: (invoice: InvoiceType) => void;
 }
 
 const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
-    const paymentTermsOptions: PaymentTermsEnum[] = [
-        PaymentTermsEnum.NEXT_DAY,
-        PaymentTermsEnum.NEXT_WEEK,
-        PaymentTermsEnum.NEXT_TWO_WEEKS,
-        PaymentTermsEnum.NEXT_MONTH
-    ];
+    const onChangeItemList = (itemList) => {
+        console.log('itemList', itemList);
+        /* const numberOfItems = e.target.value || 0;
+        const previousNumber = parseInt(field.value || '0');
+        if (previousNumber < numberOfItems) {
+            for (let i = previousNumber; i < numberOfItems; i++) {
+                itemList.push({ itemName: '', quantity: 1, price: 100 });
+            }
+        } else {
+            for (let i = previousNumber; i >= numberOfItems; i--) {
+                itemList.splice(i, 1);
+            }
+        }
+        setValues({ ...values, itemList });
+
+        field.onChange(e); */
+    }
 
     return (
         <Formik
@@ -32,10 +48,11 @@ const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
                 clientCity: invoice?.client.address.city ? invoice.client.address.city : '',
                 clientZipcode: invoice?.client.address.zipcode ? invoice.client.address.zipcode : '',
                 clientCountry: invoice?.client.address.country ? invoice.client.address.country : '',
-                invoiceDay: invoice?.invoiceDate ? invoice.invoiceDate : '',
+                invoiceDay: invoice?.invoiceDate ? invoice.invoiceDate : new Date(),
                 paymentTerms: invoice?.paymentTerms ? invoice.paymentTerms : paymentTermsOptions[0],
                 projectDescription: invoice?.projectDescription ? invoice.projectDescription : '',
-                itemList: invoice?.itemList ? invoice.itemList : []
+                itemList: invoice?.itemList ? invoice.itemList : [],
+                numberOfItems: invoice?.itemList ? invoice.itemList.length : 1,
             }}
             onSubmit={values => submitInvoice(values)}
             validationSchema={Yup.object().shape({
@@ -52,13 +69,21 @@ const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
                 invoiceDay: Yup.date().required('Invoice date is required'),
                 paymentTerms: Yup.string().required('Payment terms is required'),
                 projectDescription: Yup.string().required('Project description is required'),
-                itemList: Yup.array()
+                itemList: Yup.array().of(
+                    Yup.object().shape({
+                        name: Yup.string().required('Item name is required'),
+                        quantity: Yup.number().required('Item quantity is required'),
+                        price: Yup.number().required('Item price is required'),
+                        total: Yup.number()
+                    })
+                )
             })}
         >
         {props => {
           const { values, touched, errors, handleChange, handleBlur, handleSubmit } = props;
+
           return (
-            <form onSubmit={handleSubmit}>
+            <form>
                 <SectionHeader text="Bill From" />
                 <div className="mb-6">
                     <InputField
@@ -199,6 +224,52 @@ const InvoiceForm:React.FC<Props> = ({ invoice, submitInvoice }) => {
                             onChange={handleChange}
                             onBlur={handleBlur} />
                     </div>
+                </div>
+
+                <SectionHeader text="Item List" />
+                <div className="grid grid-cols-12 gap-x-8">
+                    <div className="col-span-12 sm:col-span-6 mb-6">
+                        <InputField
+                            label='Item Name'
+                            name ='itemList.name'
+                            value={values.projectDescription}
+                            error={errors.projectDescription}
+                            touched={touched.projectDescription}
+                            onChange={handleChange}
+                            onBlur={handleBlur} />
+                    </div>
+                    <div className="col-span-2 mb-6">
+                        <InputField
+                            label='Qty.'
+                            name ='item'
+                            value={values.projectDescription}
+                            error={errors.projectDescription}
+                            touched={touched.projectDescription}
+                            onChange={handleChange}
+                            onBlur={handleBlur} />
+                    </div>
+                    <div className="col-span-2 mb-6">
+                        <InputField
+                            label='Price'
+                            name ='itemPrice'
+                            value={values.projectDescription}
+                            error={errors.projectDescription}
+                            touched={touched.projectDescription}
+                            onChange={handleChange}
+                            onBlur={handleBlur} />
+                    </div>
+                    <div className="col-span-1 mb-6">
+                        <p className="text-secondary-dark text-xs font-medium mb-2 dark:text-secondary-light">Total</p>
+                        <p className="text-secondary-dark font-bold mb-2 dark:text-secondary-light mt-8">$ 100</p>
+                    </div>
+                    <div className="col-span-1 mb-6 flex items-center justify-center mt-8 cursor-pointer">
+                        <FontAwesomeIcon className="text-secondary-dark font-bold mb-2 dark:text-secondary-light" icon={faTrash} />
+                    </div>
+                    <div className="col-span-12">
+                        <ButtonIcon text='Add New Item' buttonType={ButtonIconTypeEnum.SECONDARY} icon={faPlus} buttonClick={() => onChangeItemList(values.itemList)} />
+                    </div>
+
+                    <Button text="Add invoice" buttonType={ButtonTypeEnum.PRIMARY} buttonClick={() => handleSubmit()} />
                 </div>
             </form>
           );
