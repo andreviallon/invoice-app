@@ -1,4 +1,4 @@
-import { ButtonTypeEnum } from '../models/ButtonTypes'
+import { ButtonTypeEnum } from '../models/ButtonTypes';
 
 interface Props {
     text: string;
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Button: React.FC<Props> = ({ text, buttonType, buttonClick }) => {
-    const classes = (buttonType): string => {
+    const classes = (buttonType: ButtonTypeEnum): string => {
         let classes: string = 'py-4 px-6 rounded-full font-bold text-xs focus:outline-none h-12 capitalize';
         
         if (buttonType === ButtonTypeEnum.PRIMARY) {

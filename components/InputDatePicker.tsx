@@ -4,7 +4,7 @@ import InputError from './InputError';
 interface Props {
     label: string;
     name: string;
-    selectedDate?: string | Date;
+    selectedDate?: Date;
     error: string;
     touched: boolean;
     onChange: (date: ChangeEvent) => void;
@@ -25,7 +25,7 @@ const InputDatePicker: React.FC<Props> = ({ label, name, selectedDate, error, to
     return (
         <div className={containerClasses()}>
             <label className="text-secondary-dark text-xs font-medium mb-2 dark:text-secondary-light" htmlFor={name}>{label}</label>
-            <input type="date" name={name} id={name} onChange={date => onChange(date)} />
+            <input type="date" name={name} id={name} value={selectedDate.toString()} onChange={date => onChange(date)} />
             {error && touched && <InputError errorMessage={error} />}
          </div>
     );
