@@ -37,10 +37,6 @@ body {
   letter-spacing: -1px;
 }
 
-.modal-window {
-  margin-left: 85px;
-}
-
 .error {
   color: red;
 
@@ -51,4 +47,12 @@ body {
   input, select {
     border-color: red;
   }
+}
+
+.modal-window-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 85px;
 }
