@@ -3,7 +3,7 @@ import { ButtonTypeEnum } from '../models/ButtonTypes';
 interface Props {
     text: string;
     buttonType: ButtonTypeEnum;
-    buttonClick: () => void;
+    buttonClick?: () => void;
 }
 
 const Button: React.FC<Props> = ({ text, buttonType, buttonClick }) => {
@@ -47,7 +47,7 @@ const Button: React.FC<Props> = ({ text, buttonType, buttonClick }) => {
     }
     
     return (
-        <button className={classes(buttonType)} onClick={buttonClick}>{text}</button>
+        <button type="button" className={classes(buttonType)} onClick={buttonClick}>{text}</button>
     )
 }
 
