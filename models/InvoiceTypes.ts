@@ -1,10 +1,10 @@
 import { InvoiceStatusTypeEnum } from './InvoiceStatusTypes';
 
 export enum PaymentTermsEnum {
-    NEXT_DAY = 'next day',
-    NEXT_WEEK = 'next 7 days',
-    NEXT_TWO_WEEKS = 'next 14 days',
-    NEXT_MONTH = 'next 30 days'
+    NEXT_DAY = 'Next day',
+    NEXT_WEEK = 'Next 7 days',
+    NEXT_TWO_WEEKS = 'Next 14 days',
+    NEXT_MONTH = 'Next 30 days'
 }
 
 export type Address = {
