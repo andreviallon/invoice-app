@@ -4,7 +4,7 @@ interface Props {
 
 const SectionHeader: React.FC<Props> = ({ text }) => {
     return (
-        <p className="text-primary-regular text-sm font-bold capitalize mb-6">{text}</p>
+        <p className="text-primary-regular text-sm font-bold capitalize my-6">{text}</p>
     )
 }
 
