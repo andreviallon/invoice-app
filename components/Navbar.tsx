@@ -32,11 +32,11 @@ const Navbar = () => {
             <div className="flex justify-end items-center w-full sm:flex-col flex-row pb-0 pr-4 sm:pb-4 sm:pr-0">
                 <div className="m-8">
                     {loaded && theme === ThemeEnum.LIGHT ?
-                        <button onClick={() => setTheme(`${ThemeEnum.DARK}`)}>
+                        <button onClick={() => setTheme(`${ThemeEnum.DARK}`)} className="focus:outline-none">
                             <FontAwesomeIcon className={iconStyles} icon={faMoon} />
                         </button>
                         :
-                        <button onClick={() => setTheme(`${ThemeEnum.LIGHT}`)}>
+                        <button onClick={() => setTheme(`${ThemeEnum.LIGHT}`)} className="focus:outline-none">
                             <FontAwesomeIcon className={iconStyles} icon={faSun} />
                         </button>
                     }
