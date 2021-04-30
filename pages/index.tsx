@@ -34,8 +34,8 @@ const Home: React.FC<Props> = ({ invoices }) => {
       {showModal && (
         <div className="modal-window-container">
           <div className="bg-primary-dark bg-opacity-50 absolute right-0 left-0 top-0 bottom-0 z-10" onClick={() => setShowModal(false)}></div>
-          <div className="bg-white dark:bg-black w-4/6 z-20 p-12 absolute h-screen overflow-auto rounded-r-2xl">
-            <InvoiceForm submitInvoice={(invoice: InvoiceType) => handleInvoice(invoice)}/>
+          <div className="bg-white dark:bg-black z-20 p-12 absolute h-screen overflow-auto rounded-r-2xl invoice-form-container">
+            <InvoiceForm submitInvoice={(invoice: InvoiceType) => handleInvoice(invoice)} closeModal={() => setShowModal(false)} />
           </div>
         </div>
       )}
