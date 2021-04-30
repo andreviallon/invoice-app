@@ -1,3 +1,4 @@
+import React, { MouseEventHandler, useState } from 'react';
 import { InvoiceType, paymentTermsOptions } from 'models/InvoiceTypes';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -11,9 +12,10 @@ import Button from './Button';
 interface Props {
     invoice?: InvoiceType;
     submitInvoice: (invoice: InvoiceType) => void;
+    closeModal: () => void;
 }
 
-const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice }) => {
+const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice, closeModal }) => {
     const initialValues = {
         streetAddress: invoice?.address.street ? invoice.address.street : '',
         city: invoice?.address.city ? invoice.address.city : '',
@@ -25,40 +27,39 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice }) => {
         clientCity: invoice?.client.address.city ? invoice.client.address.city : '',
         clientZipcode: invoice?.client.address.zipcode ? invoice.client.address.zipcode : '',
         clientCountry: invoice?.client.address.country ? invoice.client.address.country : '',
-        invoiceDay: invoice?.invoiceDate ? invoice.invoiceDate : new Date(),
+        invoiceDate: invoice?.invoiceDate ? invoice.invoiceDate : '',
         paymentTerms: invoice?.paymentTerms ? invoice.paymentTerms : paymentTermsOptions[0],
         projectDescription: invoice?.projectDescription ? invoice.projectDescription : '',
-        itemList: invoice?.itemList ? invoice.itemList : [{ name: '', quantity: 1, price: 100, total: 100 }],
+        itemList: invoice?.itemList ? invoice.itemList : [{ name: '', quantity: 1, price: 100 }],
         numberOfItems: invoice?.itemList ? invoice.itemList.length : 1
     };
 
     const validationSchema = Yup.object().shape({
-        streetAddress: Yup.string().required('Street address is required'),
-        city: Yup.string().required('City is required'),
-        zipcode: Yup.string().required('Zipcode is required'),
-        country: Yup.string().required('Country is required'),
-        clientName: Yup.string().required('Client name is required'),
-        clientEmail: Yup.string().email().required('Client email is required'),
-        clientStreetAddress: Yup.string().required('Client street address is required'),
-        clientCity: Yup.string().required('Client city is required'),
-        clientZipcode: Yup.string().required('Client zipcode is required'),
-        clientCountry: Yup.string().required('Client country is required'),
-        invoiceDay: Yup.date().required('Invoice date is required'),
-        paymentTerms: Yup.string().required('Payment terms is required'),
-        projectDescription: Yup.string().required('Project description is required'),
+        streetAddress: Yup.string().required('Field is invalid'),
+        city: Yup.string().required('Field is invalid'),
+        zipcode: Yup.string().required('Field is invalid'),
+        country: Yup.string().required('Field is invalid'),
+        clientName: Yup.string().required('Field is invalid'),
+        clientEmail: Yup.string().email().required('Field is invalid'),
+        clientStreetAddress: Yup.string().required('Field is invalid'),
+        clientCity: Yup.string().required('Field is invalid'),
+        clientZipcode: Yup.string().required('Field is invalid'),
+        clientCountry: Yup.string().required('Field is invalid'),
+        invoiceDate: Yup.date().required('Field is invalid'),
+        paymentTerms: Yup.string().required('Field is invalid'),
+        projectDescription: Yup.string().required('Field is invalid'),
         itemList: Yup.array().of(
             Yup.object().shape({
-                name: Yup.string().required('Item name is required'),
-                quantity: Yup.number().required('Item quantity is required'),
-                price: Yup.number().required('Item price is required'),
+                name: Yup.string().required('Field is invalid'),
+                quantity: Yup.number().required('Field is invalid'),
+                price: Yup.number().required('Field is invalid'),
                 total: Yup.number()
             })
         )
     });
 
-    const formatInvoice = (values) => {
+    const sendInvoice = (values) => {
         let newInvoice: InvoiceType = {
-            _id: invoice._id,
             address: {
                 street: values.streetAddress,
                 city: values.city,
@@ -77,12 +78,11 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice }) => {
             },
             invoiceDate: values.invoiceDate,
             paymentTerms: values.paymentTerms,
-            projectDescription: values.projectDescription
+            projectDescription: values.projectDescription,
+            itemList: values.itemList
         }
 
-        for (const item of values.itemList) {
-            newInvoice.itemList.push(item);
-        }
+        if (invoice?._id) newInvoice._id = invoice._id;
 
         submitInvoice(newInvoice);
     }
@@ -98,14 +98,23 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice }) => {
     const errorClasses = 'error mt-2 text-sm font-medium';
 
     return (
-        <Formik initialValues={initialValues} onSubmit={values => formatInvoice(values)} validationSchema={validationSchema}>
+        <Formik initialValues={initialValues} onSubmit={values => sendInvoice(values)} validationSchema={validationSchema}>
             {props => {
                 const { values, handleChange, handleSubmit } = props;
 
-                const onChangeItemList = (itemList) => {
-                    console.log('values', values);
-                    console.log('itemList', itemList);
+                const [numberOfListItem, setNumberOfListItem] = useState(1);
+
+                const addListItem = () => {
+                    setNumberOfListItem(numberOfListItem + 1);
+                    values.itemList.push({ name: '', quantity: 1, price: 100 });
                 }
+
+                const removeListItem = (index: number) => {
+                    setNumberOfListItem(numberOfListItem - 1);
+                    const newItemList = values.itemList.splice(index, 1);
+                }
+
+                const calculateTotalPrice = (quantity, price): number => !quantity || !price ? 0 : quantity * price;
 
                 return (
                     <Form className="pb-8">
@@ -152,8 +161,8 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice }) => {
                         </div>
                         <div className="mb-6 flex flex-col">
                             <label className={labelClasses}>Street Address</label>
-                            <Field name="clientAddress" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                            <ErrorMessage name="clientAddress" component="p" className={errorClasses}/>
+                            <Field name="clientStreetAddress" type="text" className={inputClasses} onChange={e => handleChange(e)} />
+                            <ErrorMessage name="clientStreetAddress" component="p" className={errorClasses}/>
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8">
                             <div className="col-span-1 mb-6 flex flex-col">
@@ -175,8 +184,8 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice }) => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
                             <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
                                 <label className={labelClasses}>Invoice Date</label>
-                                <Field name="invoiceDay" type="date" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="invoiceDay" component="p" className={errorClasses}/>
+                                <Field name="invoiceDate" type="date" className={inputClasses} onChange={e => handleChange(e)} />
+                                <ErrorMessage name="invoiceDate" component="p" className={errorClasses}/>
                             </div>
                             <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
                                 <label className={labelClasses}>Payment Terms</label>
@@ -201,60 +210,50 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice }) => {
                         </div>
 
                         <SectionHeader text="Item List" />
-                        {/* <div className="grid grid-cols-12 gap-x-8">
-                            {values.itemList.map((list, index) => (
-                                <React.Fragment key={index}>
-                                    <div className="col-span-12 sm:col-span-5 mb-6">
-                                        <InputField
-                                            label='Item Name'
-                                            name='itemList.name'
-                                            value={list.name}
-                                            error={errors.projectDescription}
-                                            touched={touched.projectDescription}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur} />
-                                    </div>
-                                    <div className="col-span-2 mb-6">
-                                        <InputField
-                                            label='Qty.'
-                                            name='item'
-                                            value={list.quantity}
-                                            error={errors.projectDescription}
-                                            touched={touched.projectDescription}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur} />
-                                    </div>
-                                    <div className="col-span-2 mb-6">
-                                        <InputField
-                                            label='Price'
-                                            name='itemPrice'
-                                            value={list.price}
-                                            error={errors.projectDescription}
-                                            touched={touched.projectDescription}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur} />
-                                    </div>
-                                    <div className="col-span-2 mb-6">
-                                        <p className={labelClasses}>Total</p>
-                                        <p className="text-secondary-dark font-bold mb-2 dark:text-secondary-light mt-8">$ 100</p>
-                                    </div>
-                                    <div className="col-span-1 mb-6 flex items-center justify-center mt-8 cursor-pointer">
-                                        <FontAwesomeIcon className="text-secondary-dark font-bold mb-2 dark:text-secondary-light" icon={faTrash} />
-                                    </div>
-                                </React.Fragment>
-                            ))}
-                        </div> */}
-
+                        <div className="grid grid-cols-12 gap-x-8">
+                            <FieldArray name="itemList">
+                                {() => (values.itemList.map((item, index) => {
+                                    return (
+                                        <React.Fragment key={index}>
+                                            <div className="col-span-12 sm:col-span-5 mb-6">
+                                                <label className={labelClasses}>Item Name</label>
+                                                <Field name={`itemList.${index}.name`} className={`${inputClasses} appearance-none`} type="text" />
+                                                <ErrorMessage name={`itemList.${index}.name`} component="p" className={errorClasses} />
+                                            </div>
+                                            <div className="col-span-2 mb-6">
+                                                <label className={labelClasses}>Qty.</label>
+                                                <Field name={`itemList.${index}.quantity`} className={inputClasses} type="number" />
+                                                <ErrorMessage name={`itemList.${index}.quantity`} component="p" className={errorClasses} />
+                                            </div>
+                                            <div className="col-span-2 mb-6">
+                                                <label className={labelClasses}>Price</label>
+                                                <Field name={`itemList.${index}.price`} className={inputClasses} type="number" />
+                                                <ErrorMessage name={`itemList.${index}.price`} component="p" className={errorClasses} />
+                                            </div>
+                                            <div className="col-span-2 mb-6">
+                                                <p className={labelClasses}>Total</p>
+                                                <p className="text-secondary-dark font-bold mb-2 dark:text-secondary-light mt-8">
+                                                    $ {calculateTotalPrice(item.quantity, item.price)}
+                                                </p>
+                                            </div>
+                                            <div className="col-span-1 mb-6 flex items-center justify-center mt-8">
+                                                <FontAwesomeIcon className="text-secondary-dark font-bold mb-2 dark:text-secondary-light hover:text-danger-regular cursor-pointer" icon={faTrash} onClick={() => removeListItem(index)} />
+                                            </div>
+                                        </React.Fragment>
+                                    );
+                                }))}
+                            </FieldArray>
+                        </div>
                         <div className="col-span-12">
-                            <ButtonIcon text='Add New Item' buttonType={ButtonIconTypeEnum.SECONDARY} icon={faPlus} buttonClick={() => onChangeItemList(values.itemList)} />
+                            <ButtonIcon text='Add New Item' buttonType={ButtonIconTypeEnum.SECONDARY} icon={faPlus} buttonClick={() => addListItem()} />
                         </div>
 
                         <div className="col-span-12 mt-6 flex justify-between">
-                            <Button text="Discard" buttonType={ButtonTypeEnum.SECONDARY} />
+                            <Button text="Discard" buttonType={ButtonTypeEnum.SECONDARY} buttonClick={closeModal} />
                             <div className="flex">
                                 <Button text="Save as Draft" buttonType={ButtonTypeEnum.TERTIARY} />
                                 <div className="ml-2">
-                                    <Button text="Save & Send" buttonType={ButtonTypeEnum.PRIMARY} />
+                                    <Button text="Save & Send" buttonType={ButtonTypeEnum.PRIMARY} buttonClick={() => sendInvoice(values)} />
                                 </div>
                             </div>
                         </div>
