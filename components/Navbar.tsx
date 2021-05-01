@@ -10,7 +10,7 @@ const Navbar = () => {
     const { theme, setTheme } = useTheme();
 
     const navbarStyles = `
-        bg-gray w-full h-16 flex flex-row justify-between w-24 fixed rounded-none sm:rounded-r-2xl sm:rounded-none
+        bg-gray w-full h-16 flex flex-row justify-between w-24 fixed rounded-none sm:rounded-r-2xl sm:rounded-none z-20
       
         sm:flex-col sm:items-center sm:h-screen
 
