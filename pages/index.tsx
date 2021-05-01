@@ -29,16 +29,34 @@ const Home: React.FC<Props> = ({ invoices }) => {
     console.log('submitted invoice', invoice);
   };
 
+  const modalBackground = (): string => {
+    let classes = 'bg-primary-dark bg-opacity-0 absolute right-0 left-0 top-0 bottom-0 z-10';
+    
+    if (showModal) classes = `${classes} bg-opacity-50`;
+
+    return classes;
+  }
+
+  const invoiceFormContainerClasses = (): string => {
+    let classes = 'bg-white dark:bg-black z-20 p-12 absolute h-screen overflow-auto rounded-r-2xl invoice-form-container';
+    
+    if (showModal === true) classes = `${classes} showModal`;
+    
+    return classes;
+  }
+
+  const visibility = () => showModal ? 'visible' : 'invisible';
+
   return (
     <>
-      {showModal && (
+      <div className={visibility()}>
         <div className="modal-window-container">
-          <div className="bg-primary-dark bg-opacity-50 absolute right-0 left-0 top-0 bottom-0 z-10" onClick={() => setShowModal(false)}></div>
-          <div className="bg-white dark:bg-black z-20 p-12 absolute h-screen overflow-auto rounded-r-2xl invoice-form-container">
+          <div className={modalBackground()} onClick={() => setShowModal(false)}></div>
+          <div className={invoiceFormContainerClasses()}>
             <InvoiceForm submitInvoice={(invoice: InvoiceType) => handleInvoice(invoice)} closeModal={() => setShowModal(false)} />
           </div>
         </div>
-      )}
+      </div>
 
       <div className="flex justify-between items-center mb-12">
         <div>
