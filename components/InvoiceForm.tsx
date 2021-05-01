@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useState } from 'react';
+import React, { useState } from 'react';
 import { InvoiceType, paymentTermsOptions } from 'models/InvoiceTypes';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
