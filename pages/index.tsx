@@ -7,6 +7,7 @@ import { ButtonIconTypeEnum } from 'models/ButtonTypes';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { InvoiceType } from 'models/InvoiceTypes';
 import InvoiceForm from 'components/InvoiceForm';
+import NoInvoice from 'components/NoInvoice';
 
 interface Props {
   invoices: InvoiceType[];
@@ -73,6 +74,12 @@ const Home: React.FC<Props> = ({ invoices }) => {
       ))}
 
       {!invoices && <ErrorMessage />}
+
+      {!invoices.length && (
+        <div className="mt-32">
+          <NoInvoice />
+        </div>
+      )}
     </>
   )
 }
