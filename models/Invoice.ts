@@ -2,12 +2,8 @@ import mongoose from 'mongoose';
 
 /* PetSchema will correspond to a collection in your MongoDB database. */
 const InvoiceSchema = new mongoose.Schema({
-    index: {
-        type: String,
-        required: [true, 'Please provide an index for this invoice.']
-    },
     invoiceDate: {
-        type: Date,
+        type: String,
         required: [true, 'Please provide an date for this invoice.']
     },
     paymentTerms: {
@@ -80,6 +76,10 @@ const InvoiceSchema = new mongoose.Schema({
         price: {
             type:  Number,
             required: [true, 'Please provide a price for this invoice item.']
+        },
+        total: {
+            type:  Number,
+            required: [true, 'Please provide a total price for this invoice item.']
         }
     }]
 })
