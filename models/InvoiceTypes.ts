@@ -29,7 +29,7 @@ export type Item = {
 
 export type InvoiceType = {
     _id?: string;
-    invoiceDate?: Date;
+    invoiceDate?: string;
     paymentTerms?: PaymentTermsEnum;
     address?: Address;
     client?: Client;
