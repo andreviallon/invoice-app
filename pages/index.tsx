@@ -6,15 +6,15 @@ import connectToDatabase from 'utils/connectToDatabase';
 import { ButtonIconTypeEnum } from 'models/ButtonTypes';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { InvoiceType } from 'models/InvoiceTypes';
-import InvoiceForm from 'components/InvoiceForm';
 import NoInvoice from 'components/NoInvoice';
+import InvoiceFormOverlay from 'components/InvoiceFormOverlay';
 
 interface Props {
   invoices: InvoiceType[];
 }
 
 const Home: React.FC<Props> = ({ invoices }) => {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const numberOfInvoices = (numOfInvoices: number): string => {
     if (numOfInvoices === 0) {
@@ -26,38 +26,23 @@ const Home: React.FC<Props> = ({ invoices }) => {
     }
   };
 
-  const handleInvoice = (invoice: InvoiceType): void => {
-    console.log('submitted invoice', invoice);
+  const handleSubmitInvoice = async (invoice: InvoiceType): Promise<void> => {
+    try {
+      fetch('/api/invoices', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(invoice)
+      })
+    } catch (error) {
+      console.error('Something went wrong...');
+    }
   };
-
-  const modalBackground = (): string => {
-    let classes = 'bg-primary-dark bg-opacity-0 absolute right-0 left-0 top-0 bottom-0 z-10';
-    
-    if (showModal) classes = `${classes} bg-opacity-50`;
-
-    return classes;
-  }
-
-  const invoiceFormContainerClasses = (): string => {
-    let classes = 'bg-white dark:bg-black z-20 p-12 absolute h-screen overflow-auto rounded-r-2xl invoice-form-container';
-    
-    if (showModal === true) classes = `${classes} showModal`;
-    
-    return classes;
-  }
-
-  const visibility = () => showModal ? 'visible' : 'invisible';
 
   return (
     <>
-      <div className={visibility()}>
-        <div className="modal-window-container">
-          <div className={modalBackground()} onClick={() => setShowModal(false)}></div>
-          <div className={invoiceFormContainerClasses()}>
-            <InvoiceForm submitInvoice={(invoice: InvoiceType) => handleInvoice(invoice)} closeModal={() => setShowModal(false)} />
-          </div>
-        </div>
-      </div>
+      {<InvoiceFormOverlay showModal={showModal} setShowModal={(showModal) => setShowModal(showModal)} handleSubmitInvoice={(invoice) => handleSubmitInvoice(invoice)} />}
 
       <div className="flex justify-between items-center mb-12">
         <div>
@@ -70,7 +55,9 @@ const Home: React.FC<Props> = ({ invoices }) => {
       </div>
 
       {invoices.map(invoice => (
-        <InvoiceCard key={invoice._id} invoice={invoice} />
+        <div key={invoice._id} className="mb-4">
+          <InvoiceCard invoice={invoice} />
+        </div>
       ))}
 
       {!invoices && <ErrorMessage />}
