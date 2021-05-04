@@ -1,4 +1,5 @@
 import { InvoiceType } from 'models/InvoiceTypes';
+import { useEffect } from 'react';
 import InvoiceForm from './InvoiceForm';
 
 interface Props {
@@ -9,6 +10,9 @@ interface Props {
 }
 
 const InvoiceFormOverlay: React.FC<Props> = ({ invoice, showModal, setShowModal, handleSubmitInvoice }) => {
+	useEffect(() => {
+		showModal ? document.body.classList.add('no-scroll') : document.body.classList.remove('no-scroll');
+	}, [showModal]);
 
     const modalBackground = (): string => {
         let classes = 'bg-primary-dark bg-opacity-0 absolute right-0 left-0 top-0 bottom-0 z-10';
