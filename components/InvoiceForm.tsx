@@ -100,7 +100,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice, closeModal }) =>
     return (
         <Formik initialValues={initialValues} onSubmit={values => sendInvoice(values)} validationSchema={validationSchema}>
             {props => {
-                const { values, handleChange, handleSubmit } = props;
+                const { values, handleChange, isValid, dirty } = props;
 
                 const [numberOfListItem, setNumberOfListItem] = useState(1);
 
@@ -111,7 +111,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice, closeModal }) =>
 
                 const removeListItem = (index: number) => {
                     setNumberOfListItem(numberOfListItem - 1);
-                    const newItemList = values.itemList.splice(index, 1);
+                    values.itemList.splice(index, 1);
                 }
 
                 const calculateTotalPrice = (quantity, price): number => !quantity || !price ? 0 : quantity * price;
@@ -253,7 +253,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice, closeModal }) =>
                             <div className="flex">
                                 <Button text="Save as Draft" buttonType={ButtonTypeEnum.TERTIARY} />
                                 <div className="ml-2">
-                                    <Button text="Save & Send" buttonType={ButtonTypeEnum.PRIMARY} buttonClick={() => sendInvoice(values)} />
+                                    <Button text="Save & Send" buttonType={ButtonTypeEnum.PRIMARY} buttonClick={() => sendInvoice(values)} disabled={!(isValid && dirty)}/>
                                 </div>
                             </div>
                         </div>
