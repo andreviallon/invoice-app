@@ -2,14 +2,21 @@ import { ButtonTypeEnum } from '../models/ButtonTypes';
 
 interface Props {
     text: string;
+    disabled?: boolean;
     buttonType: ButtonTypeEnum;
     buttonClick?: () => void;
 }
 
-const Button: React.FC<Props> = ({ text, buttonType, buttonClick }) => {
+const Button: React.FC<Props> = ({ text, disabled, buttonType, buttonClick }) => {
     const classes = (buttonType: ButtonTypeEnum): string => {
         let classes: string = 'py-4 px-6 rounded-full font-bold text-xs focus:outline-none h-12 capitalize';
-        
+
+        if (disabled) {
+            classes = `${classes} text-gray bg-disabled hover:bg-disabledDark`;
+            
+            return classes;
+        }
+
         if (buttonType === ButtonTypeEnum.PRIMARY) {
             classes = `${classes} text-white bg-primary-regular hover:bg-primary-light`;
         }
@@ -47,7 +54,7 @@ const Button: React.FC<Props> = ({ text, buttonType, buttonClick }) => {
     }
     
     return (
-        <button type="button" className={classes(buttonType)} onClick={buttonClick}>{text}</button>
+        <button type="button" disabled={disabled} className={classes(buttonType)} onClick={buttonClick}>{text}</button>
     )
 }
 

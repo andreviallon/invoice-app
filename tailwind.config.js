@@ -40,7 +40,9 @@ module.exports = {
       white: '#FFFFFF',
       green: '#33D69F',
       orange: '#FF8F00',
-      gray: '#373B53'
+      gray: '#373B53',
+      disabled: '#D4D4D4',
+      disabledDark: '#B4B4B4'
     },
     fontFamily: {
       sans: ['Spartan', 'sans-serif']
