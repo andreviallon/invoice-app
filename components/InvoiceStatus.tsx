@@ -6,13 +6,13 @@ interface Props {
 
 const InvoiceStatus: React.FC<Props> = ({ invoiceStatus }) => {
     const classes = (invoiceStatus): string => {
-        let classes: string = 'flex items-baseline justify-center py-4 px-8 rounded-lg font-bold text-xs bg-opacity-10';
+        let classes: string = 'flex items-baseline justify-center py-4 px-8 rounded-lg font-bold text-xs bg-opacity-10 dark:bg-opacity-20';
         
         if (invoiceStatus === InvoiceStatusTypeEnum.PAID) classes = `${classes} bg-green text-green`;
 
         if (invoiceStatus === InvoiceStatusTypeEnum.PENDING) classes = `${classes} bg-orange text-orange`;
 
-        if (invoiceStatus === InvoiceStatusTypeEnum.DRAFT) classes = `${classes} bg-gray text-gray`;
+        if (invoiceStatus === InvoiceStatusTypeEnum.DRAFT) classes = `${classes} bg-gray text-gray dark:text-white`;
 
         return classes;
     }
@@ -24,7 +24,7 @@ const InvoiceStatus: React.FC<Props> = ({ invoiceStatus }) => {
 
         if (invoiceStatus === InvoiceStatusTypeEnum.PENDING) dotClasses = `${dotClasses} bg-orange`;
 
-        if (invoiceStatus === InvoiceStatusTypeEnum.DRAFT) dotClasses = `${dotClasses} bg-gray`;
+        if (invoiceStatus === InvoiceStatusTypeEnum.DRAFT) dotClasses = `${dotClasses} bg-gray dark:bg-white`;
 
         return dotClasses;
     }
