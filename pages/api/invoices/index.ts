@@ -59,7 +59,7 @@ async function postInvoice(req, res) {
           country: req.body.client.address.country
         }
     },
-    status: 'pending',
+    status: req.body.client.address.status,
     projectDescription: req.body.projectDescription,
     itemList: items
   });
