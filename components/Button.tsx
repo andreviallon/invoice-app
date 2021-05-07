@@ -2,12 +2,13 @@ import { ButtonTypeEnum } from '../models/ButtonTypes';
 
 interface Props {
     text: string;
+    submit?: boolean;
     disabled?: boolean;
     buttonType: ButtonTypeEnum;
     buttonClick?: () => void;
 }
 
-const Button: React.FC<Props> = ({ text, disabled, buttonType, buttonClick }) => {
+const Button: React.FC<Props> = ({ text, submit, disabled, buttonType, buttonClick }) => {
     const classes = (buttonType: ButtonTypeEnum): string => {
         let classes: string = 'py-4 px-6 rounded-full font-bold text-xs focus:outline-none h-12 capitalize';
 
@@ -54,7 +55,7 @@ const Button: React.FC<Props> = ({ text, disabled, buttonType, buttonClick }) =>
     }
     
     return (
-        <button type="button" disabled={disabled} className={classes(buttonType)} onClick={buttonClick}>{text}</button>
+        <button type={submit ? 'submit' : 'button'} disabled={disabled} className={classes(buttonType)} onClick={buttonClick}>{text}</button>
     )
 }
 
