@@ -3,64 +3,50 @@ import mongoose from 'mongoose';
 /* PetSchema will correspond to a collection in your MongoDB database. */
 const InvoiceSchema = new mongoose.Schema({
     invoiceDate: {
-        type: String,
-        required: [true, 'Please provide an date for this invoice.']
+        type: String
     },
     paymentTerms: {
-        type: String,
-        required: [true, 'Please provide a payment term for this invoice.']
+        type: String
     },
     status: {
-        type: String,
-        required: [true, 'Please provide a status for this invoice.']
+        type: String
     },
     projectDescription: {
-        type: String,
-        required: [true, 'Please provide a project description for this invoice.']
+        type: String
     },
     address: {
         street: {
-            type: String,
-            required: [true, 'Please provide an street address for this invoice.']
+            type: String
         },
         city: {
-            type: String,
-            required: [true, 'Please provide an city address for this invoice.']
+            type: String
         },
         zipcode: {
-            type: String,
-            required: [true, 'Please provide an zipcode address for this invoice.']
+            type: String
         },
         country: {
-            type: String,
-            required: [true, 'Please provide an country address for this invoice.']
+            type: String
         }
     },
     client: {
         name: {
-            type: String,
-            required: [true, 'Please provide a client name for this invoice.']
+            type: String
         },
         email: {
-            type: String,
-            required: [true, 'Please provide a client email for this invoice.']
+            type: String
         },
         address: {
             street: {
-                type: String,
-                required: [true, 'Please provide an client street address for this invoice.']
+                type: String
             },
             city: {
-                type: String,
-                required: [true, 'Please provide an client city address for this invoice.']
+                type: String
             },
             zipcode: {
-                type: String,
-                required: [true, 'Please provide an client zipcode address for this invoice.']
+                type: String
             },
             country: {
-                type: String,
-                required: [true, 'Please provide an client country address for this invoice.']
+                type: String
             }
         }
     },
