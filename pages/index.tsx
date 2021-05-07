@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import InvoiceCard from 'components/InvoiceCard';
 import ButtonIcon from '../components/ButtonIcon';
 import ErrorMessage from '../components/ErrorMessage';
@@ -8,13 +8,15 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { InvoiceType } from 'models/InvoiceTypes';
 import NoInvoice from 'components/NoInvoice';
 import InvoiceFormOverlay from 'components/InvoiceFormOverlay';
+import { calendarFormat } from 'moment';
 
 interface Props {
-  invoices: InvoiceType[];
+  invoicesFromAPI: InvoiceType[];
 }
 
-const Home: React.FC<Props> = ({ invoices }) => {
+const Home: React.FC<Props> = ({ invoicesFromAPI }) => {
   const [showModal, setShowModal] = useState(false);
+  const [invoices, setInvoices] = useState(invoicesFromAPI);
 
   const numberOfInvoices = (numOfInvoices: number): string => {
     if (numOfInvoices === 0) {
@@ -26,36 +28,22 @@ const Home: React.FC<Props> = ({ invoices }) => {
     }
   };
 
-  const handleSubmitInvoice = async (invoice: InvoiceType): Promise<void> => {
-    try {
-      fetch('/api/invoices', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(invoice)
-      })
-    } catch (error) {
-      console.error('Something went wrong...');
-    }
-  };
-
   return (
     <>
-      {<InvoiceFormOverlay showModal={showModal} setShowModal={(showModal) => setShowModal(showModal)} handleSubmitInvoice={(invoice) => handleSubmitInvoice(invoice)} />}
+      {<InvoiceFormOverlay showModal={showModal} setShowModal={(showModal) => setShowModal(showModal)} handleNewInvoice={(newInvoice) => setInvoices([newInvoice, ...invoices])} />}
 
       <div className="flex justify-between items-center mb-12">
         <div>
           <h1 className="text-h1 font-bold dark:text-white">Invoices</h1>
-          <p className="dark:text-white text-sm mt-2">{numberOfInvoices(invoices.length)}</p>
+          <p className="dark:text-white text-sm mt-2">{numberOfInvoices(invoices?.length)}</p>
         </div>
         <div>
           <ButtonIcon text="New Invoice" buttonType={ButtonIconTypeEnum.PRIMARY} icon={faPlus} buttonClick={() => setShowModal(true)} />
         </div>
       </div>
 
-      {invoices.map(invoice => (
-        <div key={invoice._id} className="mb-4">
+      {invoices.map((invoice, index) => (
+        <div key={invoice._id ? invoice._id : index} className="mb-4">
           <InvoiceCard invoice={invoice} />
         </div>
       ))}
@@ -80,7 +68,7 @@ export async function getServerSideProps() {
   
   return {
     props: {
-      invoices: JSON.parse(JSON.stringify(invoices))
+      invoicesFromAPI: JSON.parse(JSON.stringify(invoices))
     }
   };
 }

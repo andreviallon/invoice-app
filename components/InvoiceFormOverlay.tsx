@@ -5,11 +5,11 @@ import InvoiceForm from './InvoiceForm';
 interface Props {
     invoice?: InvoiceType;
     showModal: boolean;
+    handleNewInvoice: (invoice: InvoiceType) => void;
     setShowModal: (showModal: boolean) => void;
-    handleSubmitInvoice: (invoice: InvoiceType) => void;
 }
 
-const InvoiceFormOverlay: React.FC<Props> = ({ invoice, showModal, setShowModal, handleSubmitInvoice }) => {
+const InvoiceFormOverlay: React.FC<Props> = ({ invoice, showModal, handleNewInvoice, setShowModal }) => {
 	useEffect(() => {
 		showModal ? document.body.classList.add('no-scroll') : document.body.classList.remove('no-scroll');
 	}, [showModal]);
@@ -37,7 +37,7 @@ const InvoiceFormOverlay: React.FC<Props> = ({ invoice, showModal, setShowModal,
         <div className="modal-window-container">
           <div className={modalBackground()} onClick={() => setShowModal(false)}></div>
           <div className={invoiceFormContainerClasses()}>
-            <InvoiceForm invoice={invoice} submitInvoice={(invoice: InvoiceType) => handleSubmitInvoice(invoice)} closeModal={() => setShowModal(false)} />
+            <InvoiceForm invoice={invoice} handleNewInvoice={(newInvoice) => handleNewInvoice(newInvoice)} closeModal={() => setShowModal(false)} />
           </div>
         </div>
       </div>
