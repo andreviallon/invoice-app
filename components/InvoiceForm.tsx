@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
-import { InvoiceType, paymentTermsOptions } from 'models/InvoiceTypes';
-import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import SectionHeader from './SectionHeader';
+import ButtonIcon from './ButtonIcon';
+import Button from './Button';
+import { InvoiceType, paymentTermsOptions } from 'models/InvoiceTypes';
+import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
-import ButtonIcon from './ButtonIcon';
 import { ButtonIconTypeEnum, ButtonTypeEnum } from '../models/ButtonTypes';
-import Button from './Button';
+import { InvoiceStatusTypeEnum } from 'models/InvoiceStatusTypes';
 
 interface Props {
     invoice?: InvoiceType;
-    submitInvoice: (invoice: InvoiceType) => void;
+    handleNewInvoice?: (invoice: InvoiceType) => void;
     closeModal: () => void;
 }
 
-const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice, closeModal }) => {
+const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal }) => {
+    const [status, setStatus] = useState(InvoiceStatusTypeEnum.PENDING);
+
     const initialValues = {
         streetAddress: invoice?.address.street ? invoice.address.street : '',
         city: invoice?.address.city ? invoice.address.city : '',
@@ -58,7 +61,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice, closeModal }) =>
         )
     });
 
-    const sendInvoice = (values) => {
+    const onSubmit = async (values, { setSubmitting, setErrors, setStatus, resetForm }) => {
         let newInvoice: InvoiceType = {
             address: {
                 street: values.streetAddress,
@@ -78,15 +81,28 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice, closeModal }) =>
             },
             invoiceDate: values.invoiceDate,
             paymentTerms: values.paymentTerms,
+            status: status,
             projectDescription: values.projectDescription,
-            itemList: values.itemList
+            itemList: values.itemList,
         }
 
         if (invoice?._id) newInvoice._id = invoice._id;
 
-        submitInvoice(newInvoice);
-    }
-
+        try {
+            await fetch('/api/invoices', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newInvoice)
+            });
+            closeModal();
+            resetForm({});
+            handleNewInvoice(newInvoice);
+        } catch (error) {
+            console.error('Something went wrong...');
+        }
+    };
     const inputClasses = `
         border-secondary-light border rounded mt-2 px-4 py-6 text-xs font-bold text-secondary-veryDark appearance-none
         dark:border-primary-dark dark:bg-primary-dark dark:text-white
@@ -98,9 +114,9 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice, closeModal }) =>
     const errorClasses = 'error mt-2 text-sm font-medium';
 
     return (
-        <Formik initialValues={initialValues} onSubmit={values => sendInvoice(values)} validationSchema={validationSchema}>
+        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
             {props => {
-                const { values, handleChange, isValid, dirty } = props;
+                const { values, handleChange, isValid, dirty, handleSubmit, resetForm } = props;
 
                 const [numberOfListItem, setNumberOfListItem] = useState(1);
 
@@ -251,9 +267,9 @@ const InvoiceForm: React.FC<Props> = ({ invoice, submitInvoice, closeModal }) =>
                         <div className="col-span-12 mt-6 flex justify-between">
                             <Button text="Discard" buttonType={ButtonTypeEnum.SECONDARY} buttonClick={closeModal} />
                             <div className="flex">
-                                <Button text="Save as Draft" buttonType={ButtonTypeEnum.TERTIARY} />
+                                <Button text="Save as Draft" submit={true} buttonType={ButtonTypeEnum.TERTIARY} buttonClick={() => setStatus(InvoiceStatusTypeEnum.DRAFT)} />
                                 <div className="ml-2">
-                                    <Button text="Save & Send" buttonType={ButtonTypeEnum.PRIMARY} buttonClick={() => sendInvoice(values)} disabled={!(isValid && dirty)}/>
+                                    <Button text="Save & Send" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty)}/>
                                 </div>
                             </div>
                         </div>
