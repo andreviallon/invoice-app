@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import SectionHeader from './SectionHeader';
 import ButtonIcon from './ButtonIcon';
 import Button from './Button';
+import axios from 'axios';
 import { InvoiceType, paymentTermsOptions } from 'models/InvoiceTypes';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -81,26 +82,49 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
             },
             invoiceDate: values.invoiceDate,
             paymentTerms: values.paymentTerms,
-            status: status,
+            status: invoice.status ? invoice.status : status,
             projectDescription: values.projectDescription,
             itemList: values.itemList,
         }
 
-        if (invoice?._id) newInvoice._id = invoice._id;
+        if (invoice?._id) {
+            newInvoice._id = invoice._id;
+            putInvoice(newInvoice, resetForm);
+        }
 
-        try {
-            await fetch('/api/invoices', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newInvoice)
-            });
-            closeModal();
-            resetForm({});
-            handleNewInvoice(newInvoice);
-        } catch (error) {
-            console.error('Something went wrong...');
+        if (!invoice?._id) {
+            postInvoice(newInvoice, resetForm);
         }
     };
+
+    const putInvoice = async (newInvoice, resetForm) => {
+        try {
+            const config = {headers: { 'Content-Type': 'application/json' }};
+            const res = await axios.put(`/api/invoices/${newInvoice._id}`, newInvoice, config);
+
+            console.log('res', res.data);
+
+            closeModal();
+            resetForm({});
+            handleNewInvoice(res.data.data);
+        } catch (error) {
+            console.error('Something went wrong...', error);
+        }
+    };
+
+    const postInvoice = async (newInvoice, resetForm) => {
+        try {
+            const config = {headers: { 'Content-Type': 'application/json' }};
+            const res = await axios.post('/api/invoices', newInvoice, config);
+
+            closeModal();
+            resetForm({});
+            handleNewInvoice(res.data);
+        } catch (error) {
+            console.error('Something went wrong...', error);
+        }
+    };
+
     const inputClasses = `
         border-secondary-light border rounded mt-2 px-4 py-6 text-xs font-bold text-secondary-veryDark appearance-none
         dark:border-primary-dark dark:bg-primary-dark dark:text-white
@@ -266,12 +290,12 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
                             <div className="col-span-12 mt-10 flex justify-end">
                                 <Button text="Cancel" submit={true} buttonType={ButtonTypeEnum.SECONDARY} buttonClick={closeModal} />
                                 <div className="ml-2">
-                                    <Button text="Save Changers" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty)} />
+                                    <Button text="Save Changes" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty)} />
                                 </div>
                             </div>
                         ) : (
                             <div className="col-span-12 mt-10 flex justify-between">
-                                <Button text="Discard" buttonType={ButtonTypeEnum.SECONDARY} buttonClick={closeModal} />
+                                <Button text="Discard" buttonType={ButtonTypeEnum.SECONDARY} buttonClick={() => {closeModal(); resetForm({})}} />
                                 <div className="flex">
                                     <Button text="Save as Draft" submit={true} buttonType={ButtonTypeEnum.TERTIARY} buttonClick={() => setStatus(InvoiceStatusTypeEnum.DRAFT)} />
                                     <div className="ml-2">
