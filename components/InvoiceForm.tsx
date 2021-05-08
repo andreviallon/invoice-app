@@ -250,7 +250,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
                                                     $ {calculateTotalPrice(item.quantity, item.price)}
                                                 </p>
                                             </div>
-                                            <div className="col-span-1 mb-6 flex items-center justify-center mt-8">
+                                            <div className="col-span-1 mb-6 flex justify-center mt-12 pt-2">
                                                 <FontAwesomeIcon className="text-secondary-dark font-bold mb-2 dark:text-secondary-light hover:text-danger-regular cursor-pointer" icon={faTrash} onClick={() => removeListItem(index)} />
                                             </div>
                                         </React.Fragment>
@@ -262,15 +262,24 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
                             <ButtonIcon text='Add New Item' buttonType={ButtonIconTypeEnum.SECONDARY} icon={faPlus} buttonClick={() => addListItem()} />
                         </div>
 
-                        <div className="col-span-12 mt-6 flex justify-between">
-                            <Button text="Discard" buttonType={ButtonTypeEnum.SECONDARY} buttonClick={closeModal} />
-                            <div className="flex">
-                                <Button text="Save as Draft" submit={true} buttonType={ButtonTypeEnum.TERTIARY} buttonClick={() => setStatus(InvoiceStatusTypeEnum.DRAFT)} />
+                        {invoice ? (
+                            <div className="col-span-12 mt-10 flex justify-end">
+                                <Button text="Cancel" submit={true} buttonType={ButtonTypeEnum.SECONDARY} buttonClick={closeModal} />
                                 <div className="ml-2">
-                                    <Button text="Save & Send" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty)} />
+                                    <Button text="Save Changers" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty)} />
                                 </div>
                             </div>
-                        </div>
+                        ) : (
+                            <div className="col-span-12 mt-10 flex justify-between">
+                                <Button text="Discard" buttonType={ButtonTypeEnum.SECONDARY} buttonClick={closeModal} />
+                                <div className="flex">
+                                    <Button text="Save as Draft" submit={true} buttonType={ButtonTypeEnum.TERTIARY} buttonClick={() => setStatus(InvoiceStatusTypeEnum.DRAFT)} />
+                                    <div className="ml-2">
+                                        <Button text="Save & Send" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty)} />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </Form>
                 );
             }}

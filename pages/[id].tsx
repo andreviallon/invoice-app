@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GoBack from "components/GoBack";
 import { InvoiceType } from "models/InvoiceTypes";
 import { ObjectId } from "mongodb";
 import connectToDatabase from "utils/connectToDatabase";
 import InvoiceDetailHeader from 'components/InvoiceDetailHeader';
 import InvoiceDetail from 'components/InvoiceDetail';
+import InvoiceFormOverlay from 'components/InvoiceFormOverlay';
 
 interface Props {
     invoice: InvoiceType;
 }
 
 const invoice: React.FC<Props> = ({ invoice }) => {
-    const editClicked = () => {
-        console.log('editClicked');
-    }
+    const [showModal, setShowModal] = useState(false);
 
     const deleteClicked = () => {
         console.log('deleteClicked');
@@ -28,20 +27,23 @@ const invoice: React.FC<Props> = ({ invoice }) => {
     }
 
     return (
-        <div className="flex flex-col">
-            <div className="mb-6">
-                <GoBack />
-            </div>
-            <div className="mb-6">
-                <InvoiceDetailHeader
-                    invoiceStatus={invoice.status}
-                    editClicked={() => editClicked()}
-                    deleteClicked={() => deleteClicked()}
-                    markedAsPaidClicked={() => markedAsPaidClicked()}
-                    markedAsUnpaidClicked={() => markedAsUnpaidClicked()} />
-            </div>
-            <InvoiceDetail invoice={invoice} />
-        </div>
+        <>
+            {<InvoiceFormOverlay invoice={invoice} showModal={showModal} setShowModal={(showModal) => setShowModal(showModal)} />}
+            <div className="flex flex-col">
+                <div className="mb-6">
+                    <GoBack />
+                </div>
+                <div className="mb-6">
+                    <InvoiceDetailHeader
+                        invoiceStatus={invoice.status}
+                        editClicked={() => setShowModal(true)}
+                        deleteClicked={() => deleteClicked()}
+                        markedAsPaidClicked={() => markedAsPaidClicked()}
+                        markedAsUnpaidClicked={() => markedAsUnpaidClicked()} />
+                </div>
+                <InvoiceDetail invoice={invoice} />
+            </div> 
+        </>
     )
 }
 

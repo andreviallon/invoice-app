@@ -4,9 +4,9 @@ import InvoiceForm from './InvoiceForm';
 
 interface Props {
     invoice?: InvoiceType;
-    showModal: boolean;
-    handleNewInvoice: (invoice: InvoiceType) => void;
-    setShowModal: (showModal: boolean) => void;
+    showModal?: boolean;
+    handleNewInvoice?: (invoice: InvoiceType) => void;
+    setShowModal?: (showModal: boolean) => void;
 }
 
 const InvoiceFormOverlay: React.FC<Props> = ({ invoice, showModal, handleNewInvoice, setShowModal }) => {
