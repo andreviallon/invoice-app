@@ -37,7 +37,7 @@ const InvoiceFormOverlay: React.FC<Props> = ({ invoice, showModal, handleNewInvo
         <div className="modal-window-container">
           <div className={modalBackground()} onClick={() => setShowModal(false)}></div>
           <div className={invoiceFormContainerClasses()}>
-            <InvoiceForm invoice={invoice} handleNewInvoice={(newInvoice) => handleNewInvoice(newInvoice)} closeModal={() => setShowModal(false)} />
+            {showModal && <InvoiceForm invoice={invoice} handleNewInvoice={(newInvoice) => handleNewInvoice(newInvoice)} closeModal={() => setShowModal(false)} />}
           </div>
         </div>
       </div>
