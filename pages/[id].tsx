@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import GoBack from "components/GoBack";
 import { InvoiceType } from "models/InvoiceTypes";
 import { ObjectId } from "mongodb";
@@ -8,10 +8,11 @@ import InvoiceDetail from 'components/InvoiceDetail';
 import InvoiceFormOverlay from 'components/InvoiceFormOverlay';
 
 interface Props {
-    invoice: InvoiceType;
+    invoiceFromAPI: InvoiceType;
 }
 
-const invoice: React.FC<Props> = ({ invoice }) => {
+const invoice: React.FC<Props> = ({ invoiceFromAPI }) => {
+    const [invoice, setInvoice] = useState(invoiceFromAPI)
     const [showModal, setShowModal] = useState(false);
 
     const deleteClicked = () => {
@@ -28,7 +29,7 @@ const invoice: React.FC<Props> = ({ invoice }) => {
 
     return (
         <>
-            {<InvoiceFormOverlay invoice={invoice} showModal={showModal} setShowModal={(showModal) => setShowModal(showModal)} />}
+            {<InvoiceFormOverlay invoice={invoice} showModal={showModal} setShowModal={(showModal) => setShowModal(showModal)} handleNewInvoice={(newInvoice) => setInvoice(newInvoice)} />}
             <div className="flex flex-col">
                 <div className="mb-6">
                     <GoBack />
@@ -55,7 +56,7 @@ export async function getServerSideProps({ params, res }) {
 
     return {
         props: {
-            invoice: JSON.parse(JSON.stringify(invoice))
+            invoiceFromAPI: JSON.parse(JSON.stringify(invoice))
         }
     };
   }
