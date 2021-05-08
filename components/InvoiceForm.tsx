@@ -61,7 +61,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
         )
     });
 
-    const onSubmit = async (values, { setSubmitting, setErrors, setStatus, resetForm }) => {
+    const onSubmit = async (values, { resetForm }) => {
         let newInvoice: InvoiceType = {
             address: {
                 street: values.streetAddress,
@@ -90,11 +90,9 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
 
         try {
             await fetch('/api/invoices', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newInvoice)
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newInvoice)
             });
             closeModal();
             resetForm({});
@@ -107,7 +105,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
         border-secondary-light border rounded mt-2 px-4 py-6 text-xs font-bold text-secondary-veryDark appearance-none
         dark:border-primary-dark dark:bg-primary-dark dark:text-white
         focus:border-primary-regular focus:outline-none`
-    ;
+        ;
 
     const labelClasses = 'text-secondary-dark text-xs font-medium dark:text-secondary-light';
 
@@ -135,32 +133,32 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
                 return (
                     <Form className="pb-8">
                         <h1 className="mb-8 text-h1 font-bold text-black dark:text-white">
-                            {invoice?._id ?  'Edit Invoice': 'New Invoice'}
+                            {invoice?._id ? 'Edit Invoice' : 'New Invoice'}
                         </h1>
-                        
+
                         <SectionHeader text="Bill From" />
-                        
+
                         <div className="mb-6 flex flex-col">
                             <label className={labelClasses}>Street Address</label>
                             <Field name="streetAddress" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                            <ErrorMessage name="streetAddress" component="p" className={errorClasses}/>
+                            <ErrorMessage name="streetAddress" component="p" className={errorClasses} />
                         </div>
-                        
+
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8">
                             <div className="col-span-1 mb-6 flex flex-col">
                                 <label className={labelClasses}>City</label>
                                 <Field name="city" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="city" component="p" className={errorClasses}/>
+                                <ErrorMessage name="city" component="p" className={errorClasses} />
                             </div>
                             <div className="col-span-1 mb-6 flex flex-col">
                                 <label className={labelClasses}>Zipcode</label>
                                 <Field name="zipcode" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="zipcode" component="p" className={errorClasses}/>
+                                <ErrorMessage name="zipcode" component="p" className={errorClasses} />
                             </div>
                             <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
                                 <label className={labelClasses}>Country</label>
                                 <Field name="country" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="country" component="p" className={errorClasses}/>
+                                <ErrorMessage name="country" component="p" className={errorClasses} />
                             </div>
                         </div>
 
@@ -168,40 +166,40 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
                         <div className="mb-6 flex flex-col">
                             <label className={labelClasses}>Client Name</label>
                             <Field name="clientName" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                            <ErrorMessage name="clientName" component="p" className={errorClasses}/>
+                            <ErrorMessage name="clientName" component="p" className={errorClasses} />
                         </div>
                         <div className="mb-6 flex flex-col">
                             <label className={labelClasses}>Client Email</label>
                             <Field name="clientEmail" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                            <ErrorMessage name="clientEmail" component="p" className={errorClasses}/>
+                            <ErrorMessage name="clientEmail" component="p" className={errorClasses} />
                         </div>
                         <div className="mb-6 flex flex-col">
                             <label className={labelClasses}>Street Address</label>
                             <Field name="clientStreetAddress" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                            <ErrorMessage name="clientStreetAddress" component="p" className={errorClasses}/>
+                            <ErrorMessage name="clientStreetAddress" component="p" className={errorClasses} />
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8">
                             <div className="col-span-1 mb-6 flex flex-col">
                                 <label className={labelClasses}>City</label>
                                 <Field name="clientCity" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="clientCity" component="p" className={errorClasses}/>
+                                <ErrorMessage name="clientCity" component="p" className={errorClasses} />
                             </div>
                             <div className="col-span-1 mb-6 flex flex-col">
                                 <label className={labelClasses}>Zipcode</label>
                                 <Field name="clientZipcode" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="clientZipcode" component="p" className={errorClasses}/>
+                                <ErrorMessage name="clientZipcode" component="p" className={errorClasses} />
                             </div>
                             <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
                                 <label className={labelClasses}>Country</label>
                                 <Field name="clientCountry" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="clientCountry" component="p" className={errorClasses}/>
+                                <ErrorMessage name="clientCountry" component="p" className={errorClasses} />
                             </div>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
                             <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
                                 <label className={labelClasses}>Invoice Date</label>
                                 <Field name="invoiceDate" type="date" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="invoiceDate" component="p" className={errorClasses}/>
+                                <ErrorMessage name="invoiceDate" component="p" className={errorClasses} />
                             </div>
                             <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
                                 <label className={labelClasses}>Payment Terms</label>
@@ -213,15 +211,15 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
                                             ))}
                                         </select>
                                     )}
-                                    </Field>
-                                <ErrorMessage name="paymentTerms" component="p" className={errorClasses}/>
+                                </Field>
+                                <ErrorMessage name="paymentTerms" component="p" className={errorClasses} />
                             </div>
                         </div>
                         <div className="grid grid-cols-1">
                             <div className="col-span-1 sm:col-span-1 mb-6 flex flex-col">
                                 <label className={labelClasses}>Project Description</label>
                                 <Field name="projectDescription" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="projectDescription" component="p" className={errorClasses}/>
+                                <ErrorMessage name="projectDescription" component="p" className={errorClasses} />
                             </div>
                         </div>
 
@@ -269,7 +267,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
                             <div className="flex">
                                 <Button text="Save as Draft" submit={true} buttonType={ButtonTypeEnum.TERTIARY} buttonClick={() => setStatus(InvoiceStatusTypeEnum.DRAFT)} />
                                 <div className="ml-2">
-                                    <Button text="Save & Send" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty)}/>
+                                    <Button text="Save & Send" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty)} />
                                 </div>
                             </div>
                         </div>
