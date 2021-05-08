@@ -8,7 +8,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { InvoiceType } from 'models/InvoiceTypes';
 import NoInvoice from 'components/NoInvoice';
 import InvoiceFormOverlay from 'components/InvoiceFormOverlay';
-import { calendarFormat } from 'moment';
 
 interface Props {
   invoicesFromAPI: InvoiceType[];
