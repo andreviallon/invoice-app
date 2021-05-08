@@ -11,10 +11,21 @@ interface Props {
 }
 
 const InvoiceCard: React.FC<Props> = ({ invoice }) => {
-    const cardClasses = `
-        grid grid-cols-2 gap-4 p-4 border-2 bg-white flex-col shadow-lg rounded-lg border-white cursor-pointer
-        sm:p-8 sm:grid-cols-11
+    const desktopCardClasses = `
+        hidden grid-cols-11 gap-4 border-2 bg-white flex-col shadow-lg rounded-lg border-white cursor-pointer p-8
         hover:border-primary-regular
+
+        sm:grid
+
+        dark:border-primary-dark dark:bg-primary-dark
+        dark:hover:border-primary-regular
+    `;
+
+    const mobileCardClasses = `
+        grid grid-cols-2 gap-x-4 gap-y-6 border-2 bg-white flex-col shadow-lg rounded-lg border-white cursor-pointer p-8
+        hover:border-primary-regular
+
+        sm:hidden
 
         dark:border-primary-dark dark:bg-primary-dark
         dark:hover:border-primary-regular
@@ -23,7 +34,7 @@ const InvoiceCard: React.FC<Props> = ({ invoice }) => {
     return (
         <Link key={invoice._id} href={`/${invoice._id}`}>
           <a>
-            <div className={cardClasses}>
+            <div className={desktopCardClasses}>
                 <span className="flex items-center col-span-2 text-black text-sm font-bold text-center dark:text-white">{invoice.projectDescription}</span>
                 <span className="flex items-center col-span-2 text-secondary-dark text-sm font-medium text-center dark:text-white">Due <Moment format="DD MMM YYYY" date={invoice.invoiceDate} /></span>
                 <span className="flex items-center col-span-2 text-secondary-dark text-sm font-medium text-center dark:text-white">{invoice.client.name}</span>
@@ -31,8 +42,19 @@ const InvoiceCard: React.FC<Props> = ({ invoice }) => {
                 <div className="flex items-center justify-center col-span-2">
                     <InvoiceStatus invoiceStatus={invoice.status} />
                 </div>
-                <div className="hidden col-span-1 sm:flex items-center justify-end">
+                <div className="flex col-span-1 items-center justify-end">
                     <FontAwesomeIcon className="text-primary-regular" icon={faAngleRight} />
+                </div>
+            </div>
+            <div className={mobileCardClasses}>
+                <span className="flex items-center col-span-1 text-black text-sm font-bold text-center dark:text-white">{invoice.projectDescription}</span>
+                <span className="flex items-center justify-end col-span-1 text-secondary-dark text-sm font-medium dark:text-white">{invoice.client.name}</span>
+                <div className="flex flex-col col-span-1">
+                    <span className="text-secondary-dark text-sm font-medium dark:text-white">Due <Moment format="DD MMM YYYY" date={invoice.invoiceDate} /></span>
+                    <span className="text-black text-sm mt-1 font-bold dark:text-white">DKK {totalPrice(invoice.itemList)}</span>
+                </div>
+                <div className="flex items-center justify-end col-span-1">
+                    <InvoiceStatus invoiceStatus={invoice.status} />
                 </div>
             </div>
           </a>
