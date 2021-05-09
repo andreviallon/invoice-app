@@ -8,17 +8,20 @@ import InvoiceDetail from 'components/InvoiceDetail';
 import InvoiceFormOverlay from 'components/InvoiceFormOverlay';
 import axios from 'axios';
 import { InvoiceStatusTypeEnum } from 'models/InvoiceStatusTypes';
+import DeleteInvoiceDialog from 'components/DeleteInvoiceDialog';
 
 interface Props {
     invoiceFromAPI: InvoiceType;
+    showDeleteModal: boolean;
 }
 
 const invoice: React.FC<Props> = ({ invoiceFromAPI }) => {
     const [invoice, setInvoice] = useState(invoiceFromAPI)
     const [showModal, setShowModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const deleteClicked = () => {
-        console.log('deleteClicked');
+        setShowDeleteModal(true);
     }
 
     const markedAsPaidClicked = async () => {
@@ -47,6 +50,7 @@ const invoice: React.FC<Props> = ({ invoiceFromAPI }) => {
 
     return (
         <>
+            {<DeleteInvoiceDialog invoice={invoice} showDeleteModal={showDeleteModal} setShowDeleteModal={() => setShowDeleteModal(false)} />}
             {<InvoiceFormOverlay invoice={invoice} showModal={showModal} setShowModal={(showModal) => setShowModal(showModal)} handleNewInvoice={(newInvoice) => setInvoice(newInvoice)} />}
             <div className="flex flex-col">
                 <div className="mb-6">
@@ -78,4 +82,3 @@ export async function getServerSideProps({ params, res }) {
         }
     };
   }
-  

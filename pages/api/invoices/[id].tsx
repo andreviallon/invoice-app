@@ -10,6 +10,9 @@ export default async function handler(req, res) {
         case 'PUT':
             await putInvoice(req, res);
             break;
+        case 'DELETE':
+            await deleteInvoice(req, res);
+            break;
         default:
             res.status(400).json({ success: false });
             break;
@@ -80,6 +83,29 @@ async function putInvoice(req, res) {
         });
 
         res.json({ data: updatedInvoice });
+    } catch (error) {
+        return res.status(500).json({ error: error.message })
+    }
+}
+
+async function deleteInvoice(req, res) {
+    try {
+        const invoice = await Invoice.findById(req.query.id);
+
+        if (!invoice) {
+            return res.status(404).json({
+                success: false,
+                error: 'No invoice found'
+            });
+        }
+
+        await invoice.remove();
+
+        return res.status(200).json({
+            success: true,
+            data: {}
+        });
+
     } catch (error) {
         return res.status(500).json({ error: error.message })
     }
