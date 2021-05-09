@@ -102,8 +102,6 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
             const config = {headers: { 'Content-Type': 'application/json' }};
             const res = await axios.put(`/api/invoices/${newInvoice._id}`, newInvoice, config);
 
-            console.log('res', res.data);
-
             closeModal();
             resetForm({});
             handleNewInvoice(res.data.data);

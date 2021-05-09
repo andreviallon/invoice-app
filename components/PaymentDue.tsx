@@ -2,7 +2,7 @@ import Moment from 'react-moment';
 import { PaymentTermsEnum } from '../models/InvoiceTypes';
 
 interface Props {
-    invoiceDate: Date;
+    invoiceDate: Date | string;
     paymentTerms: PaymentTermsEnum
 }
 

@@ -6,6 +6,8 @@ import connectToDatabase from "utils/connectToDatabase";
 import InvoiceDetailHeader from 'components/InvoiceDetailHeader';
 import InvoiceDetail from 'components/InvoiceDetail';
 import InvoiceFormOverlay from 'components/InvoiceFormOverlay';
+import axios from 'axios';
+import { InvoiceStatusTypeEnum } from 'models/InvoiceStatusTypes';
 
 interface Props {
     invoiceFromAPI: InvoiceType;
@@ -19,12 +21,28 @@ const invoice: React.FC<Props> = ({ invoiceFromAPI }) => {
         console.log('deleteClicked');
     }
 
-    const markedAsPaidClicked = () => {
-        console.log('markedAsPaidClicked');
+    const markedAsPaidClicked = async () => {
+        try {
+            const newInvoice = { ...invoice, status: InvoiceStatusTypeEnum.PAID };
+            const config = {headers: { 'Content-Type': 'application/json' }};
+            const res = await axios.put(`/api/invoices/${newInvoice._id}`, newInvoice, config);
+
+            setInvoice(res.data.data);
+        } catch (error) {
+            console.error('Something went wrong...', error);
+        }
     }
 
-    const markedAsUnpaidClicked = () => {
-        console.log('markedAsUnpaidClicked');
+    const markedAsUnpaidClicked = async () => {
+        try {
+            const newInvoice = { ...invoice, status: InvoiceStatusTypeEnum.PENDING };
+            const config = {headers: { 'Content-Type': 'application/json' }};
+            const res = await axios.put(`/api/invoices/${newInvoice._id}`, newInvoice, config);
+
+            setInvoice(res.data.data);
+        } catch (error) {
+            console.error('Something went wrong...', error);
+        }
     }
 
     return (
