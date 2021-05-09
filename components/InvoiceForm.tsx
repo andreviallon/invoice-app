@@ -82,7 +82,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
             },
             invoiceDate: values.invoiceDate,
             paymentTerms: values.paymentTerms,
-            status: invoice.status ? invoice.status : status,
+            status: invoice?.status ? invoice.status : status,
             projectDescription: values.projectDescription,
             itemList: values.itemList,
         }
@@ -127,7 +127,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
         border-secondary-light border rounded mt-2 px-4 py-6 text-xs font-bold text-secondary-veryDark appearance-none
         dark:border-primary-dark dark:bg-primary-dark dark:text-white
         focus:border-primary-regular focus:outline-none`
-        ;
+    ;
 
     const labelClasses = 'text-secondary-dark text-xs font-medium dark:text-secondary-light';
 
@@ -136,7 +136,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
     return (
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
             {props => {
-                const { values, handleChange, isValid, dirty, handleSubmit, resetForm } = props;
+                const { values, handleChange, isValid, dirty, resetForm } = props;
 
                 const [numberOfListItem, setNumberOfListItem] = useState(1);
 

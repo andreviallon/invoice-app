@@ -8,6 +8,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { InvoiceType } from 'models/InvoiceTypes';
 import NoInvoice from 'components/NoInvoice';
 import InvoiceFormOverlay from 'components/InvoiceFormOverlay';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
   invoicesFromAPI: InvoiceType[];
@@ -16,6 +18,8 @@ interface Props {
 const Home: React.FC<Props> = ({ invoicesFromAPI }) => {
   const [showModal, setShowModal] = useState(false);
   const [invoices, setInvoices] = useState(invoicesFromAPI);
+
+  const notifyCreatedInvoice = () => toast.success("Invoice created");
 
   const numberOfInvoices = (numOfInvoices: number): string => {
     if (numOfInvoices === 0) {
@@ -27,9 +31,15 @@ const Home: React.FC<Props> = ({ invoicesFromAPI }) => {
     }
   };
 
+  const handleNewInvoice = (newInvoice: InvoiceType) => {
+    setInvoices([newInvoice, ...invoices])
+    notifyCreatedInvoice();
+  };
+
   return (
     <>
-      {<InvoiceFormOverlay showModal={showModal} setShowModal={(showModal) => setShowModal(showModal)} handleNewInvoice={(newInvoice) => setInvoices([newInvoice, ...invoices])} />}
+      <ToastContainer />
+      {<InvoiceFormOverlay showModal={showModal} setShowModal={(showModal) => setShowModal(showModal)} handleNewInvoice={(newInvoice) => handleNewInvoice(newInvoice)} />}
 
       <div className="flex justify-between items-center mb-12">
         <div>

@@ -9,6 +9,9 @@ import InvoiceFormOverlay from 'components/InvoiceFormOverlay';
 import axios from 'axios';
 import { InvoiceStatusTypeEnum } from 'models/InvoiceStatusTypes';
 import DeleteInvoiceDialog from 'components/DeleteInvoiceDialog';
+import { toast, ToastContainer } from 'react-toastify';
+import Router from 'next/router';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
     invoiceFromAPI: InvoiceType;
@@ -19,6 +22,11 @@ const invoice: React.FC<Props> = ({ invoiceFromAPI }) => {
     const [invoice, setInvoice] = useState(invoiceFromAPI)
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const notifyMarkAsMarkedAsPaid = () => toast.success("Invoice marked as paid");
+    const notifyMarkAsMarkedAsUnpaid = () => toast.success("Invoice marked as unpaid");
+    const notifyDelete = () => toast.success("Invoice Delete, Redirecting to front page");
+    const notifyError = (err: string) => toast.error(err);
 
     const deleteClicked = () => {
         setShowDeleteModal(true);
@@ -31,8 +39,9 @@ const invoice: React.FC<Props> = ({ invoiceFromAPI }) => {
             const res = await axios.put(`/api/invoices/${newInvoice._id}`, newInvoice, config);
 
             setInvoice(res.data.data);
-        } catch (error) {
-            console.error('Something went wrong...', error);
+            notifyMarkAsMarkedAsPaid();
+        } catch (err) {
+            notifyError(err);
         }
     }
 
@@ -43,14 +52,25 @@ const invoice: React.FC<Props> = ({ invoiceFromAPI }) => {
             const res = await axios.put(`/api/invoices/${newInvoice._id}`, newInvoice, config);
 
             setInvoice(res.data.data);
-        } catch (error) {
-            console.error('Something went wrong...', error);
+            notifyMarkAsMarkedAsUnpaid();
+        } catch (err) {
+            notifyError(err);
+        }
+    }
+
+    const deleteInvoice = async () => {
+        try {
+            await axios.delete(`/api/invoices/${invoice._id}`, { params: { id: invoice._id } });
+            notifyDelete();
+            Router.push('/');
+        } catch (err) {
+            notifyError(err);
         }
     }
 
     return (
         <>
-            {<DeleteInvoiceDialog invoice={invoice} showDeleteModal={showDeleteModal} setShowDeleteModal={() => setShowDeleteModal(false)} />}
+            {<DeleteInvoiceDialog showDeleteModal={showDeleteModal} setShowDeleteModal={() => setShowDeleteModal(false)} deleteInvoice={() => {deleteInvoice()}} />}
             {<InvoiceFormOverlay invoice={invoice} showModal={showModal} setShowModal={(showModal) => setShowModal(showModal)} handleNewInvoice={(newInvoice) => setInvoice(newInvoice)} />}
             <div className="flex flex-col">
                 <div className="mb-6">
@@ -65,6 +85,7 @@ const invoice: React.FC<Props> = ({ invoiceFromAPI }) => {
                         markedAsUnpaidClicked={() => markedAsUnpaidClicked()} />
                 </div>
                 <InvoiceDetail invoice={invoice} />
+                <ToastContainer />
             </div> 
         </>
     )
