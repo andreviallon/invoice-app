@@ -25,8 +25,14 @@ const invoice: React.FC<Props> = ({ invoiceFromAPI }) => {
 
     const notifyMarkAsMarkedAsPaid = () => toast.success("Invoice marked as paid");
     const notifyMarkAsMarkedAsUnpaid = () => toast.success("Invoice marked as unpaid");
+    const notifyEdit = () => toast.success("Changes saved");
     const notifyDelete = () => toast.success("Invoice Delete, Redirecting to front page");
     const notifyError = (err: string) => toast.error(err);
+
+    const handleNewInvoice = (newInvoice) => {
+        setInvoice(newInvoice);
+        notifyEdit();
+    }
 
     const deleteClicked = () => {
         setShowDeleteModal(true);
@@ -71,7 +77,7 @@ const invoice: React.FC<Props> = ({ invoiceFromAPI }) => {
     return (
         <>
             {<DeleteInvoiceDialog showDeleteModal={showDeleteModal} setShowDeleteModal={() => setShowDeleteModal(false)} deleteInvoice={() => {deleteInvoice()}} />}
-            {<InvoiceFormOverlay invoice={invoice} showModal={showModal} setShowModal={(showModal) => setShowModal(showModal)} handleNewInvoice={(newInvoice) => setInvoice(newInvoice)} />}
+            {<InvoiceFormOverlay invoice={invoice} showModal={showModal} setShowModal={(showModal) => setShowModal(showModal)} handleNewInvoice={(newInvoice) => handleNewInvoice(newInvoice)} />}
             <div className="flex flex-col">
                 <div className="mb-6">
                     <GoBack />
