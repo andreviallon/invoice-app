@@ -43,11 +43,16 @@ const Home: React.FC<Props> = ({ invoicesFromAPI }) => {
 
       <div className="flex justify-between items-center mb-12">
         <div>
-          <h1 className="text-h1 font-bold dark:text-white">Invoices</h1>
-          <p className="dark:text-white text-sm mt-2">{numberOfInvoices(invoices?.length)}</p>
+          <h1 className="text-h2 sm:text-h1 font-bold dark:text-white">Invoices</h1>
+          <p className="dark:text-white text-xs sm:text-sm mt-2">{numberOfInvoices(invoices?.length)}</p>
         </div>
         <div>
-          <ButtonIcon text="New Invoice" buttonType={ButtonIconTypeEnum.PRIMARY} icon={faPlus} buttonClick={() => setShowModal(true)} />
+          <div className="sm:hidden block">
+            <ButtonIcon text="New" buttonType={ButtonIconTypeEnum.PRIMARY} icon={faPlus} buttonClick={() => setShowModal(true)} />
+          </div>
+          <div className="sm:block hidden">
+            <ButtonIcon text="New Invoice" buttonType={ButtonIconTypeEnum.PRIMARY} icon={faPlus} buttonClick={() => setShowModal(true)} />
+          </div>
         </div>
       </div>
 
