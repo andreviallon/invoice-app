@@ -154,7 +154,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
 
                 return (
                     <Form className="pb-8">
-                        <h1 className="mb-8 text-h1 font-bold text-black dark:text-white">
+                        <h1 className="mb-8 text-h2 sm:text-h1 font-bold text-black dark:text-white">
                             {invoice?._id ? 'Edit Invoice' : 'New Invoice'}
                         </h1>
 
@@ -251,22 +251,22 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
                                 {() => (values.itemList.map((item, index) => {
                                     return (
                                         <React.Fragment key={index}>
-                                            <div className="col-span-12 sm:col-span-5 mb-6">
+                                            <div className="col-span-12 sm:col-span-5 mb-6 flex flex-col">
                                                 <label className={labelClasses}>Item Name</label>
                                                 <Field name={`itemList.${index}.name`} className={`${inputClasses} appearance-none`} type="text" />
                                                 <ErrorMessage name={`itemList.${index}.name`} component="p" className={errorClasses} />
                                             </div>
-                                            <div className="col-span-2 mb-6">
+                                            <div className="col-span-4 sm:col-span-2 mb-6 flex flex-col">
                                                 <label className={labelClasses}>Qty.</label>
                                                 <Field name={`itemList.${index}.quantity`} className={inputClasses} type="number" />
                                                 <ErrorMessage name={`itemList.${index}.quantity`} component="p" className={errorClasses} />
                                             </div>
-                                            <div className="col-span-2 mb-6">
+                                            <div className="col-span-4 sm:col-span-2 mb-6 flex flex-col">
                                                 <label className={labelClasses}>Price</label>
                                                 <Field name={`itemList.${index}.price`} className={inputClasses} type="number" />
                                                 <ErrorMessage name={`itemList.${index}.price`} component="p" className={errorClasses} />
                                             </div>
-                                            <div className="col-span-2 mb-6">
+                                            <div className="col-span-2 sm:col-span-2 mb-6 flex flex-col">
                                                 <p className={labelClasses}>Total</p>
                                                 <p className="text-secondary-dark font-bold mb-2 dark:text-secondary-light mt-8">
                                                     $ {calculateTotalPrice(item.quantity, item.price)}
