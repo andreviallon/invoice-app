@@ -1,8 +1,19 @@
 module.exports = {
-  purge: {
-    content: ['./src/pages/**/*.{js,jsx,ts,tsx}', './src/components/**/*.{js,jsx,ts,tsx}', './pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}']
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
   },
   darkMode: 'class',
+  purge: {
+    content: [
+      './src/pages/**/*.{js,jsx,ts,tsx}',
+      './src/components/**/*.{js,jsx,ts,tsx}',
+      './src/customHooks/**/*.{js,jsx,ts,tsx}',
+      './pages/**/*.{js,ts,jsx,tsx}',
+      './components/**/*.{js,ts,jsx,tsx}',
+      './customHooks/**/*.{js,ts,jsx,tsx}'
+    ]
+  },
   theme: {
     fontSize: {
       'xs': '.75rem',
@@ -51,7 +62,10 @@ module.exports = {
     }
   },
   variants: {
-    extend: {}
+    extend: {
+      backgroundColor: ['dark'],
+      textColor: ['dark']
+    }
   },
   plugins: []
 }
