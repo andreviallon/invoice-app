@@ -7,7 +7,7 @@ import axios from 'axios';
 import { InvoiceType, paymentTermsOptions } from 'models/InvoiceTypes';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ButtonIconTypeEnum, ButtonTypeEnum } from '../models/ButtonTypes';
 import { InvoiceStatusTypeEnum } from 'models/InvoiceStatusTypes';
 
@@ -133,6 +133,16 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
 
     const errorClasses = 'error mt-2 text-sm font-medium';
 
+    const closeButtonClasses = `
+    flex justify-center items-center rounded-full cursor-pointer border-solid border-2 border-secondary-light h-10 w-10
+    hover:bg-primary-light hover:text-white
+    
+    dark:text-white dark:border-secondary-dark
+    dark:hover:bg-primary-regular
+    
+    sm:hidden
+    `;
+
     return (
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
             {props => {
@@ -154,9 +164,14 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
 
                 return (
                     <Form className="pb-8">
-                        <h1 className="mb-8 text-h2 sm:text-h1 font-bold text-black dark:text-white">
-                            {invoice?._id ? 'Edit Invoice' : 'New Invoice'}
-                        </h1>
+                        <div className="flex justify-between items-center mb-8">
+                            <h1 className="text-h2 sm:text-h1 font-bold text-black dark:text-white">
+                                {invoice?._id ? 'Edit Invoice' : 'New Invoice'}
+                            </h1>
+                            <div className={closeButtonClasses} onClick={closeModal}>
+                                <FontAwesomeIcon icon={faTimes} />
+                            </div>
+                        </div>
 
                         <SectionHeader text="Bill From" />
 
