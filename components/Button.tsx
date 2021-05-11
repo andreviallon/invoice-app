@@ -40,7 +40,7 @@ const Button: React.FC<Props> = ({ text, submit, disabled, buttonType, buttonCli
                 ${classes}
                 text-secondary-regular
                 bg-primary-veryDark
-                hover:bg-black
+                hover:bg-dark
 
                 dark:text-red
                 :hover:dark:bg-primary-dark

@@ -165,7 +165,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
                 return (
                     <Form className="pb-8">
                         <div className="flex justify-between items-center mb-8">
-                            <h1 className="text-h2 sm:text-h1 font-bold text-black dark:text-white">
+                            <h1 className="text-h2 sm:text-h1 font-bold text-dark dark:text-white">
                                 {invoice?._id ? 'Edit Invoice' : 'New Invoice'}
                             </h1>
                             <div className={closeButtonClasses} onClick={closeModal}>

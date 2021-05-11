@@ -49,7 +49,7 @@ module.exports = {
         light: '#FF9797'
       },
       background: '#F8F8FB',
-      black: "#141625",
+      dark: "#141625",
       white: '#FFFFFF',
       green: '#33D69F',
       orange: '#FF8F00',

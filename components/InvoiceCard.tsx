@@ -35,12 +35,12 @@ const InvoiceCard: React.FC<Props> = ({ invoice }) => {
         <Link key={invoice._id} href={`/${invoice._id}`}>
           <a>
             <div className={desktopCardClasses}>
-                <span className="flex items-center col-span-2 text-black text-sm font-bold text-center dark:text-white">{invoice.projectDescription}</span>
+                <span className="flex items-center col-span-2 text-dark text-sm font-bold text-center dark:text-white">{invoice.projectDescription}</span>
                 <span className="flex items-center col-span-2 text-secondary-dark text-sm font-medium text-center dark:text-white">
                     <span className="mr-1">Due</span> <Moment format="DD MMM YYYY" date={invoice.invoiceDate} />
                 </span>
                 <span className="flex items-center col-span-2 text-secondary-dark text-sm font-medium text-center dark:text-white">{invoice.client.name}</span>
-                <span className="flex items-center col-span-2 text-black font-bold text-center dark:text-white">$ {totalPrice(invoice.itemList)}</span>
+                <span className="flex items-center col-span-2 text-dark font-bold text-center dark:text-white">$ {totalPrice(invoice.itemList)}</span>
                 <div className="flex items-center justify-center col-span-2">
                     <InvoiceStatus invoiceStatus={invoice.status} />
                 </div>
@@ -49,11 +49,11 @@ const InvoiceCard: React.FC<Props> = ({ invoice }) => {
                 </div>
             </div>
             <div className={mobileCardClasses}>
-                <span className="flex items-center col-span-1 text-black text-sm font-bold text-center dark:text-white">{invoice.projectDescription}</span>
+                <span className="flex items-center col-span-1 text-dark text-sm font-bold text-center dark:text-white">{invoice.projectDescription}</span>
                 <span className="flex items-center justify-end col-span-1 text-secondary-dark text-sm font-medium dark:text-white">{invoice.client.name}</span>
                 <div className="flex flex-col col-span-1">
                     <span className="text-secondary-dark text-sm font-medium dark:text-white">Due<Moment format="DD MMM YYYY" date={invoice.invoiceDate} /></span>
-                    <span className="text-black text-sm mt-1 font-bold dark:text-white">$ {totalPrice(invoice.itemList)}</span>
+                    <span className="text-dark text-sm mt-1 font-bold dark:text-white">$ {totalPrice(invoice.itemList)}</span>
                 </div>
                 <div className="flex items-center justify-end col-span-1">
                     <InvoiceStatus invoiceStatus={invoice.status} />
