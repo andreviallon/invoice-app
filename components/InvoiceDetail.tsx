@@ -10,7 +10,7 @@ interface Props {
 
 const InvoiceDetail: React.FC<Props> = ({ invoice }) => {
     return (
-        <div className="bg-white dark:bg-primary-dark p-6 sm:p-16 shadow-lg rounded-lg">
+        <div className="bg-white dark:bg-primary-dark p-6 sm:p-16 shadow-lg rounded-lg mb-24 sm:mb-0">
             <div className="flex justify-between mb-8">
                 <div className="flex flex-col">
                     <p className="font-bold mb-2 dark:text-white">{invoice.projectDescription}</p>
