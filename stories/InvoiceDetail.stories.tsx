@@ -4,7 +4,7 @@ import InvoiceDetail from '../components/InvoiceDetail';
 
 const invoice: InvoiceType = {
     _id: '1',
-    invoiceDate: new Date(),
+    invoiceDate: '16-05-2021',
     paymentTerms: PaymentTermsEnum.NEXT_MONTH,
     address: {
         street: '19 Union Terrace',
