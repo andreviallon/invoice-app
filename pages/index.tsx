@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import InvoiceCard from 'components/InvoiceCard';
 import ButtonIcon from '../components/ButtonIcon';
-import ErrorMessage from '../components/ErrorMessage';
 import connectToDatabase from 'utils/connectToDatabase';
 import { ButtonIconTypeEnum } from 'models/ButtonTypes';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -20,6 +19,7 @@ const Home: React.FC<Props> = ({ invoicesFromAPI }) => {
   const [invoices, setInvoices] = useState(invoicesFromAPI);
 
   const notifyCreatedInvoice = () => toast.success("Invoice created");
+  const notifyError = () => toast.success("Something went wrong... Couldn't fetch invoices");
 
   const numberOfInvoices = (numOfInvoices: number): string => {
     if (numOfInvoices === 0) {
@@ -62,7 +62,7 @@ const Home: React.FC<Props> = ({ invoicesFromAPI }) => {
         </div>
       ))}
 
-      {!invoices && <ErrorMessage />}
+      {!invoices && notifyError()}
 
       {!invoices.length && (
         <div className="mt-32">
