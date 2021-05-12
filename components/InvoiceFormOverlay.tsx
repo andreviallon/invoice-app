@@ -23,7 +23,7 @@ const InvoiceFormOverlay: React.FC<Props> = ({ invoice, showModal, handleNewInvo
     }
 
     const invoiceFormContainerClasses = (): string => {
-        let classes = 'bg-white dark:bg-dark z-20 p-12 absolute h-screen overflow-auto rounded-r-2xl invoice-form-container';
+        let classes = 'bg-white z-20 p-12 absolute h-screen overflow-auto rounded-r-2xl invoice-form-container';
 
         if (showModal === true) classes = `${classes} showModal`;
 

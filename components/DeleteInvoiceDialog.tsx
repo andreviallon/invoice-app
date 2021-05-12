@@ -22,7 +22,7 @@ const DeleteInvoiceDialog: React.FC<Props> = ({ showDeleteModal, setShowDeleteMo
     }
 
     const deleteDialogContainerClasses = (): string => {
-        return 'bg-white dark:bg-dark z-20 p-12 relative rounded-2xl';
+        return 'bg-white z-20 p-12 relative rounded-2xl';
     }
 
     const visibility = () => showDeleteModal ? 'block' : 'hidden';
@@ -32,7 +32,7 @@ const DeleteInvoiceDialog: React.FC<Props> = ({ showDeleteModal, setShowDeleteMo
         <div className="modal-window-container">
           <div className={modalBackground()} onClick={() => setShowDeleteModal()}>
             <div className={deleteDialogContainerClasses()}>
-                <p className="text-dark dark:text-white text-h2 font-bold">Confirm Deletion</p>
+                <p className="text-dark text-h2 font-bold">Confirm Deletion</p>
                 <p className="text-secondary-regular text-sm font-medium my-6 leading-6">Are you sure you want to delete this invoice? <br />This action cannot be undone.</p>
                 <div className="flex flex-row justify-end">
                     <div className="mr-2">

@@ -125,22 +125,17 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
 
     const inputClasses = `
         border-secondary-light border rounded mt-2 px-4 py-6 text-xs font-bold text-secondary-veryDark appearance-none
-        dark:border-primary-dark dark:bg-primary-dark dark:text-white
         focus:border-primary-regular focus:outline-none`
     ;
 
-    const labelClasses = 'text-secondary-dark text-xs font-medium dark:text-secondary-light';
+    const labelClasses = 'text-secondary-dark text-xs font-medium';
 
     const errorClasses = 'error mt-2 text-sm font-medium';
 
     const closeButtonClasses = `
-    flex justify-center items-center rounded-full cursor-pointer border-solid border-2 border-secondary-light h-10 w-10
-    hover:bg-primary-light hover:text-white
-    
-    dark:text-white dark:border-secondary-dark
-    dark:hover:bg-primary-regular
-    
-    sm:hidden
+        flex justify-center items-center rounded-full cursor-pointer border-solid border-2 border-secondary-light h-10 w-10
+        hover:bg-primary-light hover:text-white    
+        sm:hidden
     `;
 
     return (
@@ -165,7 +160,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
                 return (
                     <Form className="pb-8">
                         <div className="flex justify-between items-center mb-8">
-                            <h1 className="text-h2 sm:text-h1 font-bold text-dark dark:text-white">
+                            <h1 className="text-h2 sm:text-h1 font-bold text-dark">
                                 {invoice?._id ? 'Edit Invoice' : 'New Invoice'}
                             </h1>
                             <div className={closeButtonClasses} onClick={closeModal}>
@@ -283,12 +278,12 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
                                             </div>
                                             <div className="col-span-2 sm:col-span-2 mb-6 flex flex-col">
                                                 <p className={labelClasses}>Total</p>
-                                                <p className="text-secondary-dark font-bold mb-2 dark:text-secondary-light mt-8">
+                                                <p className="text-secondary-dark font-bold mb-2-light mt-8">
                                                     $ {calculateTotalPrice(item.quantity, item.price)}
                                                 </p>
                                             </div>
                                             <div className="col-span-1 mb-6 flex justify-center mt-12 pt-2">
-                                                <FontAwesomeIcon className="text-secondary-dark font-bold mb-2 dark:text-secondary-light hover:text-danger-regular cursor-pointer" icon={faTrash} onClick={() => removeListItem(index)} />
+                                                <FontAwesomeIcon className="text-secondary-dark font-bold mb-2-light hover:text-danger-regular cursor-pointer" icon={faTrash} onClick={() => removeListItem(index)} />
                                             </div>
                                         </React.Fragment>
                                     );

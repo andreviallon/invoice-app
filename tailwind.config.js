@@ -1,19 +1,6 @@
 module.exports = {
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-  },
+  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'class',
-  purge: {
-    content: [
-      './src/pages/**/*.{js,jsx,ts,tsx}',
-      './src/components/**/*.{js,jsx,ts,tsx}',
-      './src/customHooks/**/*.{js,jsx,ts,tsx}',
-      './pages/**/*.{js,ts,jsx,tsx}',
-      './components/**/*.{js,ts,jsx,tsx}',
-      './customHooks/**/*.{js,ts,jsx,tsx}'
-    ]
-  },
   theme: {
     fontSize: {
       'xs': '.75rem',
@@ -49,7 +36,7 @@ module.exports = {
         light: '#FF9797'
       },
       background: '#F8F8FB',
-      dark: "#141625",
+      black: "#141625",
       white: '#FFFFFF',
       green: '#33D69F',
       orange: '#FF8F00',
@@ -62,10 +49,7 @@ module.exports = {
     }
   },
   variants: {
-    extend: {
-      backgroundColor: ['dark'],
-      textColor: ['dark']
-    }
+    extend: {}
   },
   plugins: []
 }

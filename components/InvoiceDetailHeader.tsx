@@ -12,22 +12,17 @@ interface Props {
 }
 
 const InvoiceDetailHeader: React.FC<Props> = ({ invoiceStatus, editClicked, deleteClicked, markedAsPaidClicked, markedAsUnpaidClicked }) => {
-    const cardClasses = `
-        px-8 py-6 border-2 bg-white shadow-lg rounded-lg border-white flex flex-col items-center justify-between
-        sm:flex-row
-        dark:border-primary-dark dark:bg-primary-dark
-    `;
+    const cardClasses = `px-8 py-6 border-2 bg-white shadow-lg rounded-lg border-white flex flex-col items-center justify-between sm:flex-row`;
 
     const actionsClasses = `
         flex items-center justify-center w-full fixed right-0 left-0 bottom-0 py-4 bg-white shadow-2xl
         sm:justify-start sm:mt-0 sm:relative sm:shadow-none sm:py-0 sm:w-auto
-        dark:bg-primary-dark
     `;
 
     return (
         <div className={cardClasses}>
             <div className="flex items-center justify-between w-full sm:w-auto">
-                <span className="text-secondary-dark text-sm font-medium text-center dark:text-white mr-4">Status</span>
+                <span className="text-secondary-dark text-sm font-medium text-center mr-4">Status</span>
                 <InvoiceStatus invoiceStatus={invoiceStatus} />
             </div>
             <div className={actionsClasses}>

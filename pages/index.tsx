@@ -43,8 +43,8 @@ const Home: React.FC<Props> = ({ invoicesFromAPI }) => {
 
       <div className="flex justify-between items-center mb-12">
         <div>
-          <h1 className="text-h2 sm:text-h1 font-bold dark:text-white">Invoices</h1>
-          <p className="dark:text-white text-xs sm:text-sm mt-2">{numberOfInvoices(invoices?.length)}</p>
+          <h1 className="text-h2 sm:text-h1 font-bold">Invoices</h1>
+          <p className="text-xs sm:text-sm mt-2">{numberOfInvoices(invoices?.length)}</p>
         </div>
         <div>
           <div className="sm:hidden block">
