@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ButtonIconTypeEnum, ButtonTypeEnum } from '../models/ButtonTypes';
 import { InvoiceStatusTypeEnum } from 'models/InvoiceStatusTypes';
+import { toast, ToastContainer } from 'react-toastify';
 
 interface Props {
     invoice?: InvoiceType;
@@ -20,6 +21,7 @@ interface Props {
 const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal }) => {
     const [status, setStatus] = useState(InvoiceStatusTypeEnum.PENDING);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const notifyError = (err: string) => toast.error(err);
 
     const initialValues = {
         streetAddress: invoice?.address.street ? invoice.address.street : '',
@@ -108,8 +110,8 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
             resetForm({});
             handleNewInvoice(res.data.data);
             setIsSubmitting(false);
-        } catch (error) {
-            console.error('Something went wrong...', error);
+        } catch (err) {
+            notifyError(err);
             setIsSubmitting(false);
         }
     };
@@ -123,8 +125,9 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
             resetForm({});
             handleNewInvoice(res.data);
             setIsSubmitting(false);
-        } catch (error) {
-            console.error('Something went wrong...', error);
+        } catch (err) {
+            console.error('err', err);
+            notifyError(err);
             setIsSubmitting(false);
         }
     };
@@ -145,183 +148,186 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
     `;
 
     return (
-        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-            {props => {
-                const { values, handleChange, isValid, dirty, resetForm } = props;
+        <>
+            <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                {props => {
+                    const { values, handleChange, isValid, dirty, resetForm } = props;
 
-                const [numberOfListItem, setNumberOfListItem] = useState(1);
+                    const [numberOfListItem, setNumberOfListItem] = useState(1);
 
-                const addListItem = () => {
-                    setNumberOfListItem(numberOfListItem + 1);
-                    values.itemList.push({ name: '', quantity: 1, price: 100 });
-                }
+                    const addListItem = () => {
+                        setNumberOfListItem(numberOfListItem + 1);
+                        values.itemList.push({ name: '', quantity: 1, price: 100 });
+                    }
 
-                const removeListItem = (index: number) => {
-                    setNumberOfListItem(numberOfListItem - 1);
-                    values.itemList.splice(index, 1);
-                }
+                    const removeListItem = (index: number) => {
+                        setNumberOfListItem(numberOfListItem - 1);
+                        values.itemList.splice(index, 1);
+                    }
 
-                const calculateTotalPrice = (quantity, price): number => !quantity || !price ? 0 : quantity * price;
+                    const calculateTotalPrice = (quantity, price): number => !quantity || !price ? 0 : quantity * price;
 
-                return (
-                    <Form className="pb-8">
-                        <div className="flex justify-between items-center mb-8">
-                            <h1 className="text-h2 sm:text-h1 font-bold text-dark">
-                                {invoice?._id ? 'Edit Invoice' : 'New Invoice'}
-                            </h1>
-                            <div className={closeButtonClasses} onClick={closeModal}>
-                                <FontAwesomeIcon icon={faTimes} />
-                            </div>
-                        </div>
-
-                        <SectionHeader text="Bill From" />
-
-                        <div className="mb-6 flex flex-col">
-                            <label className={labelClasses}>Street Address</label>
-                            <Field name="streetAddress" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                            <ErrorMessage name="streetAddress" component="p" className={errorClasses} />
-                        </div>
-
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8">
-                            <div className="col-span-1 mb-6 flex flex-col">
-                                <label className={labelClasses}>City</label>
-                                <Field name="city" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="city" component="p" className={errorClasses} />
-                            </div>
-                            <div className="col-span-1 mb-6 flex flex-col">
-                                <label className={labelClasses}>Zipcode</label>
-                                <Field name="zipcode" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="zipcode" component="p" className={errorClasses} />
-                            </div>
-                            <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
-                                <label className={labelClasses}>Country</label>
-                                <Field name="country" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="country" component="p" className={errorClasses} />
-                            </div>
-                        </div>
-
-                        <SectionHeader text="Bill To" />
-                        <div className="mb-6 flex flex-col">
-                            <label className={labelClasses}>Client Name</label>
-                            <Field name="clientName" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                            <ErrorMessage name="clientName" component="p" className={errorClasses} />
-                        </div>
-                        <div className="mb-6 flex flex-col">
-                            <label className={labelClasses}>Client Email</label>
-                            <Field name="clientEmail" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                            <ErrorMessage name="clientEmail" component="p" className={errorClasses} />
-                        </div>
-                        <div className="mb-6 flex flex-col">
-                            <label className={labelClasses}>Street Address</label>
-                            <Field name="clientStreetAddress" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                            <ErrorMessage name="clientStreetAddress" component="p" className={errorClasses} />
-                        </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8">
-                            <div className="col-span-1 mb-6 flex flex-col">
-                                <label className={labelClasses}>City</label>
-                                <Field name="clientCity" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="clientCity" component="p" className={errorClasses} />
-                            </div>
-                            <div className="col-span-1 mb-6 flex flex-col">
-                                <label className={labelClasses}>Zipcode</label>
-                                <Field name="clientZipcode" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="clientZipcode" component="p" className={errorClasses} />
-                            </div>
-                            <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
-                                <label className={labelClasses}>Country</label>
-                                <Field name="clientCountry" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="clientCountry" component="p" className={errorClasses} />
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
-                            <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
-                                <label className={labelClasses}>Invoice Date</label>
-                                <Field name="invoiceDate" type="date" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="invoiceDate" component="p" className={errorClasses} />
-                            </div>
-                            <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
-                                <label className={labelClasses}>Payment Terms</label>
-                                <Field name="paymentTerms">
-                                    {({ field }) => (
-                                        <select {...field} className={inputClasses} onChange={e => handleChange(e)}>
-                                            {paymentTermsOptions.map(option => (
-                                                <option key={option} value={option} label={option} className="capitalize" />
-                                            ))}
-                                        </select>
-                                    )}
-                                </Field>
-                                <ErrorMessage name="paymentTerms" component="p" className={errorClasses} />
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-1">
-                            <div className="col-span-1 sm:col-span-1 mb-6 flex flex-col">
-                                <label className={labelClasses}>Project Description</label>
-                                <Field name="projectDescription" type="text" className={inputClasses} onChange={e => handleChange(e)} />
-                                <ErrorMessage name="projectDescription" component="p" className={errorClasses} />
-                            </div>
-                        </div>
-
-                        <SectionHeader text="Item List" />
-                        <div className="grid grid-cols-12 gap-x-8">
-                            <FieldArray name="itemList">
-                                {() => (values.itemList.map((item, index) => {
-                                    return (
-                                        <React.Fragment key={index}>
-                                            <div className="col-span-12 sm:col-span-5 mb-6 flex flex-col">
-                                                <label className={labelClasses}>Item Name</label>
-                                                <Field name={`itemList.${index}.name`} className={`${inputClasses} appearance-none`} type="text" />
-                                                <ErrorMessage name={`itemList.${index}.name`} component="p" className={errorClasses} />
-                                            </div>
-                                            <div className="col-span-4 sm:col-span-2 mb-6 flex flex-col">
-                                                <label className={labelClasses}>Qty.</label>
-                                                <Field name={`itemList.${index}.quantity`} className={inputClasses} type="number" />
-                                                <ErrorMessage name={`itemList.${index}.quantity`} component="p" className={errorClasses} />
-                                            </div>
-                                            <div className="col-span-4 sm:col-span-2 mb-6 flex flex-col">
-                                                <label className={labelClasses}>Price</label>
-                                                <Field name={`itemList.${index}.price`} className={inputClasses} type="number" />
-                                                <ErrorMessage name={`itemList.${index}.price`} component="p" className={errorClasses} />
-                                            </div>
-                                            <div className="col-span-2 sm:col-span-2 mb-6 flex flex-col">
-                                                <p className={labelClasses}>Total</p>
-                                                <p className="text-secondary-dark font-bold mb-2-light mt-8">
-                                                    $ {calculateTotalPrice(item.quantity, item.price)}
-                                                </p>
-                                            </div>
-                                            <div className="col-span-1 mb-6 flex justify-center mt-12 pt-2">
-                                                <FontAwesomeIcon className="text-secondary-dark font-bold mb-2-light hover:text-danger-regular cursor-pointer" icon={faTrash} onClick={() => removeListItem(index)} />
-                                            </div>
-                                        </React.Fragment>
-                                    );
-                                }))}
-                            </FieldArray>
-                        </div>
-                        <div className="col-span-12">
-                            <ButtonIcon text='Add New Item' buttonType={ButtonIconTypeEnum.SECONDARY} icon={faPlus} buttonClick={() => addListItem()} />
-                        </div>
-
-                        {invoice ? (
-                            <div className="col-span-12 mt-10 flex justify-end">
-                                <Button text="Cancel" submit={true} buttonType={ButtonTypeEnum.SECONDARY} buttonClick={closeModal} />
-                                <div className="ml-2">
-                                    <Button text="Save Changes" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty) || isSubmitting} />
+                    return (
+                        <Form className="pb-8">
+                            <div className="flex justify-between items-center mb-8">
+                                <h1 className="text-h2 sm:text-h1 font-bold text-dark">
+                                    {invoice?._id ? 'Edit Invoice' : 'New Invoice'}
+                                </h1>
+                                <div className={closeButtonClasses} onClick={closeModal}>
+                                    <FontAwesomeIcon icon={faTimes} />
                                 </div>
                             </div>
-                        ) : (
-                            <div className="col-span-12 mt-10 flex justify-between">
-                                <Button text="Discard" buttonType={ButtonTypeEnum.SECONDARY} buttonClick={() => {closeModal(); resetForm({})}} />
-                                <div className="flex">
-                                    <Button text="Save as Draft" submit={true} buttonType={ButtonTypeEnum.TERTIARY} buttonClick={() => setStatus(InvoiceStatusTypeEnum.DRAFT)} disabled={!(isValid && dirty) || isSubmitting} />
+
+                            <SectionHeader text="Bill From" />
+
+                            <div className="mb-6 flex flex-col">
+                                <label className={labelClasses}>Street Address</label>
+                                <Field name="streetAddress" type="text" className={inputClasses} onChange={e => handleChange(e)} />
+                                <ErrorMessage name="streetAddress" component="p" className={errorClasses} />
+                            </div>
+
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8">
+                                <div className="col-span-1 mb-6 flex flex-col">
+                                    <label className={labelClasses}>City</label>
+                                    <Field name="city" type="text" className={inputClasses} onChange={e => handleChange(e)} />
+                                    <ErrorMessage name="city" component="p" className={errorClasses} />
+                                </div>
+                                <div className="col-span-1 mb-6 flex flex-col">
+                                    <label className={labelClasses}>Zipcode</label>
+                                    <Field name="zipcode" type="text" className={inputClasses} onChange={e => handleChange(e)} />
+                                    <ErrorMessage name="zipcode" component="p" className={errorClasses} />
+                                </div>
+                                <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
+                                    <label className={labelClasses}>Country</label>
+                                    <Field name="country" type="text" className={inputClasses} onChange={e => handleChange(e)} />
+                                    <ErrorMessage name="country" component="p" className={errorClasses} />
+                                </div>
+                            </div>
+
+                            <SectionHeader text="Bill To" />
+                            <div className="mb-6 flex flex-col">
+                                <label className={labelClasses}>Client Name</label>
+                                <Field name="clientName" type="text" className={inputClasses} onChange={e => handleChange(e)} />
+                                <ErrorMessage name="clientName" component="p" className={errorClasses} />
+                            </div>
+                            <div className="mb-6 flex flex-col">
+                                <label className={labelClasses}>Client Email</label>
+                                <Field name="clientEmail" type="text" className={inputClasses} onChange={e => handleChange(e)} />
+                                <ErrorMessage name="clientEmail" component="p" className={errorClasses} />
+                            </div>
+                            <div className="mb-6 flex flex-col">
+                                <label className={labelClasses}>Street Address</label>
+                                <Field name="clientStreetAddress" type="text" className={inputClasses} onChange={e => handleChange(e)} />
+                                <ErrorMessage name="clientStreetAddress" component="p" className={errorClasses} />
+                            </div>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8">
+                                <div className="col-span-1 mb-6 flex flex-col">
+                                    <label className={labelClasses}>City</label>
+                                    <Field name="clientCity" type="text" className={inputClasses} onChange={e => handleChange(e)} />
+                                    <ErrorMessage name="clientCity" component="p" className={errorClasses} />
+                                </div>
+                                <div className="col-span-1 mb-6 flex flex-col">
+                                    <label className={labelClasses}>Zipcode</label>
+                                    <Field name="clientZipcode" type="text" className={inputClasses} onChange={e => handleChange(e)} />
+                                    <ErrorMessage name="clientZipcode" component="p" className={errorClasses} />
+                                </div>
+                                <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
+                                    <label className={labelClasses}>Country</label>
+                                    <Field name="clientCountry" type="text" className={inputClasses} onChange={e => handleChange(e)} />
+                                    <ErrorMessage name="clientCountry" component="p" className={errorClasses} />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+                                <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
+                                    <label className={labelClasses}>Invoice Date</label>
+                                    <Field name="invoiceDate" type="date" className={inputClasses} onChange={e => handleChange(e)} />
+                                    <ErrorMessage name="invoiceDate" component="p" className={errorClasses} />
+                                </div>
+                                <div className="col-span-2 sm:col-span-1 mb-6 flex flex-col">
+                                    <label className={labelClasses}>Payment Terms</label>
+                                    <Field name="paymentTerms">
+                                        {({ field }) => (
+                                            <select {...field} className={inputClasses} onChange={e => handleChange(e)}>
+                                                {paymentTermsOptions.map(option => (
+                                                    <option key={option} value={option} label={option} className="capitalize" />
+                                                ))}
+                                            </select>
+                                        )}
+                                    </Field>
+                                    <ErrorMessage name="paymentTerms" component="p" className={errorClasses} />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1">
+                                <div className="col-span-1 sm:col-span-1 mb-6 flex flex-col">
+                                    <label className={labelClasses}>Project Description</label>
+                                    <Field name="projectDescription" type="text" className={inputClasses} onChange={e => handleChange(e)} />
+                                    <ErrorMessage name="projectDescription" component="p" className={errorClasses} />
+                                </div>
+                            </div>
+
+                            <SectionHeader text="Item List" />
+                            <div className="grid grid-cols-12 gap-x-8">
+                                <FieldArray name="itemList">
+                                    {() => (values.itemList.map((item, index) => {
+                                        return (
+                                            <React.Fragment key={index}>
+                                                <div className="col-span-12 sm:col-span-5 mb-6 flex flex-col">
+                                                    <label className={labelClasses}>Item Name</label>
+                                                    <Field name={`itemList.${index}.name`} className={`${inputClasses} appearance-none`} type="text" />
+                                                    <ErrorMessage name={`itemList.${index}.name`} component="p" className={errorClasses} />
+                                                </div>
+                                                <div className="col-span-4 sm:col-span-2 mb-6 flex flex-col">
+                                                    <label className={labelClasses}>Qty.</label>
+                                                    <Field name={`itemList.${index}.quantity`} className={inputClasses} type="number" />
+                                                    <ErrorMessage name={`itemList.${index}.quantity`} component="p" className={errorClasses} />
+                                                </div>
+                                                <div className="col-span-4 sm:col-span-2 mb-6 flex flex-col">
+                                                    <label className={labelClasses}>Price</label>
+                                                    <Field name={`itemList.${index}.price`} className={inputClasses} type="number" />
+                                                    <ErrorMessage name={`itemList.${index}.price`} component="p" className={errorClasses} />
+                                                </div>
+                                                <div className="col-span-2 sm:col-span-2 mb-6 flex flex-col">
+                                                    <p className={labelClasses}>Total</p>
+                                                    <p className="text-secondary-dark font-bold mb-2-light mt-8">
+                                                        $ {calculateTotalPrice(item.quantity, item.price)}
+                                                    </p>
+                                                </div>
+                                                <div className="col-span-1 mb-6 flex justify-center mt-12 pt-2">
+                                                    <FontAwesomeIcon className="text-secondary-dark font-bold mb-2-light hover:text-danger-regular cursor-pointer" icon={faTrash} onClick={() => removeListItem(index)} />
+                                                </div>
+                                            </React.Fragment>
+                                        );
+                                    }))}
+                                </FieldArray>
+                            </div>
+                            <div className="col-span-12">
+                                <ButtonIcon text='Add New Item' buttonType={ButtonIconTypeEnum.SECONDARY} icon={faPlus} buttonClick={() => addListItem()} />
+                            </div>
+
+                            {invoice ? (
+                                <div className="col-span-12 mt-10 flex justify-end">
+                                    <Button text="Cancel" submit={true} buttonType={ButtonTypeEnum.SECONDARY} buttonClick={closeModal} />
                                     <div className="ml-2">
-                                        <Button text="Save & Send" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty) || isSubmitting} />
+                                        <Button text="Save Changes" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty) || isSubmitting} />
                                     </div>
                                 </div>
-                            </div>
-                        )}
-                    </Form>
-                );
-            }}
-        </Formik>
+                            ) : (
+                                <div className="col-span-12 mt-10 flex justify-between">
+                                    <Button text="Discard" buttonType={ButtonTypeEnum.SECONDARY} buttonClick={() => {closeModal(); resetForm({})}} />
+                                    <div className="flex">
+                                        <Button text="Save as Draft" submit={true} buttonType={ButtonTypeEnum.TERTIARY} buttonClick={() => setStatus(InvoiceStatusTypeEnum.DRAFT)} disabled={!(isValid && dirty) || isSubmitting} />
+                                        <div className="ml-2">
+                                            <Button text="Save & Send" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty) || isSubmitting} />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </Form>
+                    );
+                }}
+            </Formik>
+            <ToastContainer />
+        </>
     )
 }
 
