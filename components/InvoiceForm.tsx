@@ -19,6 +19,7 @@ interface Props {
 
 const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal }) => {
     const [status, setStatus] = useState(InvoiceStatusTypeEnum.PENDING);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const initialValues = {
         streetAddress: invoice?.address.street ? invoice.address.street : '',
@@ -63,6 +64,7 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
     });
 
     const onSubmit = async (values, { resetForm }) => {
+        setIsSubmitting(true);
         let newInvoice: InvoiceType = {
             address: {
                 street: values.streetAddress,
@@ -105,8 +107,10 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
             closeModal();
             resetForm({});
             handleNewInvoice(res.data.data);
+            setIsSubmitting(false);
         } catch (error) {
             console.error('Something went wrong...', error);
+            setIsSubmitting(false);
         }
     };
 
@@ -118,8 +122,10 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
             closeModal();
             resetForm({});
             handleNewInvoice(res.data);
+            setIsSubmitting(false);
         } catch (error) {
             console.error('Something went wrong...', error);
+            setIsSubmitting(false);
         }
     };
 
@@ -298,16 +304,16 @@ const InvoiceForm: React.FC<Props> = ({ invoice, handleNewInvoice, closeModal })
                             <div className="col-span-12 mt-10 flex justify-end">
                                 <Button text="Cancel" submit={true} buttonType={ButtonTypeEnum.SECONDARY} buttonClick={closeModal} />
                                 <div className="ml-2">
-                                    <Button text="Save Changes" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty)} />
+                                    <Button text="Save Changes" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty) || isSubmitting} />
                                 </div>
                             </div>
                         ) : (
                             <div className="col-span-12 mt-10 flex justify-between">
                                 <Button text="Discard" buttonType={ButtonTypeEnum.SECONDARY} buttonClick={() => {closeModal(); resetForm({})}} />
                                 <div className="flex">
-                                    <Button text="Save as Draft" submit={true} buttonType={ButtonTypeEnum.TERTIARY} buttonClick={() => setStatus(InvoiceStatusTypeEnum.DRAFT)} />
+                                    <Button text="Save as Draft" submit={true} buttonType={ButtonTypeEnum.TERTIARY} buttonClick={() => setStatus(InvoiceStatusTypeEnum.DRAFT)} disabled={!(isValid && dirty) || isSubmitting} />
                                     <div className="ml-2">
-                                        <Button text="Save & Send" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty)} />
+                                        <Button text="Save & Send" submit={true} buttonType={ButtonTypeEnum.PRIMARY} disabled={!(isValid && dirty) || isSubmitting} />
                                     </div>
                                 </div>
                             </div>

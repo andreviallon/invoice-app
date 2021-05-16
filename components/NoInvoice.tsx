@@ -1,6 +1,5 @@
 import Image from 'next/image';
 
-
 const NoInvoice = () => {
     return (
         <div className="flex flex-col items-center">
